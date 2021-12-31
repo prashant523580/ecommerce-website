@@ -1,0 +1,20 @@
+.header{
+    text-transform: capitalize;
+    width: 100%;
+    background-color: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 25vmin 3fr 1fr auto;
+    /* column-gap: 20px; */
+    align-items: center;
+    justify-content: center;
+    /* height: 40px; */
+    padding: 12px 10px;
+    color: var(--light);
+}
+.header .search-box{
+    display: flex;
+}
+.header .search-box .search{
+    width: 80%;
+    padding: 6px 10px;
+}

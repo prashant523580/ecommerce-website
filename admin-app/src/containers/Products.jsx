@@ -34,7 +34,7 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(getAllProduct());
-    })
+    },[])
     const handleCreateProductForm = (e) => {
         e.preventDefault();
         const form = new FormData();

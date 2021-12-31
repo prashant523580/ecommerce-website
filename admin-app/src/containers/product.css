@@ -28,7 +28,7 @@ display: flex;
     width: 100%;
     padding: .1rem .1rem;
 }
-.page-container .main-form-container .main-container .picture-container{
+.page-container .main-form-container  .picture-container{
     overflow-y: auto;
     width: 100%;
     height: 30vh;
@@ -39,19 +39,19 @@ display: flex;
     row-gap: 2px;
 }
 
-.page-container .main-form-container .main-container .picture-container .preview-image{
+.page-container .main-form-container  .picture-container .preview-image{
     place-self: center;
     width: 15vmin;
     height: 15vmin;
     margin: .1rem;
     /* overflow: hidden; */
 }
-.page-container .main-form-container .main-container .picture-container .category-preview-img{
+.page-container .main-form-container .picture-container .category-preview-img{
         width: 35vmin;
     height: 25vmin;
 
 }
-.page-container .main-form-container .main-container .picture-container .preview-image img{
+.page-container .main-form-container .picture-container .preview-image img{
     width: 100%;
     height: 100%;
     object-fit: contain;

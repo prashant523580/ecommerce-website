@@ -53,7 +53,7 @@ exports.getProductBySlug = async(req,res) => {
                     under20k : currentProducts.filter(product => product.price >10000 && product.price <= 20000),
                     under30k : currentProducts.filter(product => product.price > 20000 && product.price <= 30000),
                     under60k: currentProducts.filter(product =>product.price > 40000 && product.price <= 60000),
-                    above60k : currentProducts.filter(product => product.price > 6000 && product.price <= 300000)
+                    above60k : currentProducts.filter(product => product.price > 60000 && product.price <= 300000)
                 }    
             })
         }

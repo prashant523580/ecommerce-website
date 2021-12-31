@@ -64,3 +64,9 @@ exports.getCategories = async (req,res) => {
         res.status(422).json({error:"error"})
     }
 }
+exports.updateCategory = async(req,res) => {
+        console.log(req.body)
+        res.status(200).json({
+            body: req.body
+        })
+}

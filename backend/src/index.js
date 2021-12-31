@@ -30,6 +30,6 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/product",productRoutes);
 app.use("/api/user", cartRoutes);
 app.use("/api",initialData);
-app.listen(PORT, ()  => {
+app.listen(PORT,"0.0.0.0", ()  => {
     console.log(`listening port to ${PORT}`);
 })

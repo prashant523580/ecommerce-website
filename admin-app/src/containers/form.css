@@ -52,7 +52,7 @@
     align-items: center;
     margin: .3rem .3rem;
   }
-  .form-container .form-group label{
+  .form-group label{
     text-transform: capitalize;
     color: aliceblue;
     

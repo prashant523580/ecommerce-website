@@ -1,7 +1,7 @@
 const express = require ("express");
 const { authorize, adminMiddleware } = require("../common/commonAuth");
 
-const { addCategory, getCategories, updateCategory } = require("../controller/category");
+const { addCategory, getCategories, updateCategory ,deleteCategory} = require("../controller/category");
 const auth = require("../middleware/auth");
 const router = express.Router();
 const multer = require("multer");
@@ -20,4 +20,5 @@ router.post("/create", authorize,adminMiddleware, upload.single('categoryImage')
 // router.post("/create", upload.single('categoryImage'), addCategory);
 router.get("/getcategory", getCategories);
 router.post("/update",authorize,adminMiddleware,upload.array('categoryImage'),updateCategory);
+router.post("/delete",authorize,adminMiddleware,deleteCategory)
 module.exports = router;

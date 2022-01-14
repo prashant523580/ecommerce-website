@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
+import PagesIcon from '@mui/icons-material/Pages';
 const Sidenav = (props) => {
     const [menuWidth,setMenuWidth] = useState(50);
     const [rotate,setRotate] = useState(0)
@@ -28,22 +29,14 @@ const Sidenav = (props) => {
             path:"/products"
         },
         {
-            link:"order",
-            icon:<FactCheckIcon/>,
-            path: "/orders"
+            link:"pages",
+            icon:<PagesIcon/>,
+            path: "/pages"
         },{
             link:"order",
             icon:<FactCheckIcon/>,
             path: "/orders"
-        },{
-            link:"order",
-            icon:<FactCheckIcon/>,
-            path: "/orders"
-        },{
-            link:"order",
-            icon:<FactCheckIcon/>,
-            path: "/orders"
-        },
+        }
     ];
     const toggleMenu = ()  => {
         if(menuWidth === 50){
@@ -55,7 +48,6 @@ const Sidenav = (props) => {
             setMenuWidth(50);
             setRotate(360);
         }
-        console.log(menuWidth)
     }
     return(
         <>

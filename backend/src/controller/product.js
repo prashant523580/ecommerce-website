@@ -1,7 +1,7 @@
 const Product =require("../models/product");
 const slugify = require("slugify");
 const category = require("../models/category");
-const product = require("../models/product");
+
 
 exports.createProduct = async(req,res) => {
     try{
@@ -45,7 +45,7 @@ exports.getProductBySlug = async(req,res) => {
         let currentCategory = await category.findOne({slug}).select("_id");
       
         if(currentCategory){
-            let currentProducts = await product.find({category:currentCategory._id});
+            let currentProducts = await Product.find({category:currentCategory._id});
             res.status(200).json({currentProducts,
                 productByPrice :{
                     under5k : currentProducts.filter(product => product.price <= 5000),
@@ -59,5 +59,37 @@ exports.getProductBySlug = async(req,res) => {
         }
     }catch(err){
         res.status(422).json(err);
+    }
+}
+
+exports.deleteProductById = async(req,res) => {
+    try{    
+        const {productId} = req.body;
+         let deletedProduct = await Product.deleteOne({_id:productId });
+        res.status(202).json({
+            message : "product deleted successfully..."
+        })
+    }catch(err){
+        res.status(422).json(err);
+    }
+}
+
+exports.getProductDetailsById = async(req,res) => {
+    try{
+        const {productId} = req.params;
+        console.log(productId)
+        if(productId){
+            let productDetails = await Product.findOne({_id:productId});
+            if(productDetails){
+                res.status(200).json({
+                    product: productDetails
+                })
+            }else {
+                return res.status(400).json({ error: "Params required" });
+              }
+        }
+
+    }catch(err){
+        res.status(400).json(err);
     }
 }

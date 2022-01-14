@@ -13,6 +13,7 @@ const initState = {
     authenticate : false,
     authenticating: false,
     loading:false,
+    error:null,
     message : ""
 }
 export default (state = initState, action) => {

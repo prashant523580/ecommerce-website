@@ -3,46 +3,49 @@ import { CategoryConstants } from "../actions/constant";
 const initState = {
     categories: [],
     loading: false,
-    error: null
+    error: null,
+    message: "" 
 };
 
 //common category push
 const buildNewCategories = (parentId, categories, category) => {
-    let newCategory = [];
+    let newCategories = [];
     if (parentId === undefined) {
         return [
             ...categories, {
                 _id: category._id,
                 name: category.name,
                 slug: category.slug,
+                type:category.type,
                 children: []
             }
         ]
     }
     for (let cate of categories) {
         if (cate._id === parentId) {
+            let newCategory = {
+                _id: category._id,
+                name: category.name,
+                slug: cate.slug,
+                parentId: category.parentId,
+                type: category.type,
+                children: [],
 
-            newCategory.push({
+            };
+            newCategories.push({
                 ...cate,
-                children: cate.children ? buildNewCategories(parentId, cate.children, {
-                    _id: category._id,
-                    name: category.name,
-                    slug: cate.slug,
-                    parentId: category.parentId,
-                    children: category.children,
-
-                }, category) : []
+                children: cate.children.length > 0 ? [...cate.children,newCategory] : [newCategory]
             })
         } else {
 
-            newCategory.push({
+            newCategories.push({
                 ...cate,
                 children: cate.children ? buildNewCategories(parentId, cate.children, category) : [],
 
             })
         }
     }
-    return newCategory;
+    return newCategories;
 }
 export default (state = initState, action) => {
     switch (action.type) {
@@ -62,7 +65,7 @@ export default (state = initState, action) => {
             const category = action.payload.category;
             console.log(category)
             const updateCategory = buildNewCategories(category.parentId, state.categories, category);
-            console.log(updateCategory)
+                console.log(updateCategory)
             state = {
                 ...state,
                 categories: updateCategory,
@@ -72,6 +75,31 @@ export default (state = initState, action) => {
         case CategoryConstants.ADD_CATEGORY_FAILURE:
             state = {
                 ...initState
+            }
+            break;
+        case CategoryConstants.DELETE_CATEGORY_SUCCESS:
+            state = {
+                ...initState,
+                message : action.payload.message
+            }
+            break;
+        case CategoryConstants.UPDATE_CATEGORY_REQUEST:
+            state ={
+                ...initState,
+                loading: true
+            }
+            break;
+        case CategoryConstants.UPDATE_CATEGORY_SUCCESS:
+            state  = {
+                ...initState,
+                loading: false
+            }
+            break;
+        case CategoryConstants.UPDATE_CATEGORY_FAILURE:
+            state = {
+                ...initState,
+                error: action.payload.error,
+                loading: false
             }
             break;
     }

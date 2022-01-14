@@ -3,9 +3,8 @@ import React,{useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import "./style.css";
-function Menu() {
+function Menu(props) {
     const category = useSelector(state => state.category)
-        console.log(category)
         const renderCategory = (categories) => {
         
             let category_list = [];
@@ -13,7 +12,7 @@ function Menu() {
             category_list.push(
                 <li key={category.name}>
                     {
-                        category.parentId ? <a href={category.slug}>{category.name}</a> :
+                        category.parentId ? <a href={`${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</a> :
                         <span> {category.name}</span>
                     }
                     {category.children.length > 0 ? (<ul>{renderCategory(category.children)} </ul>) : null}

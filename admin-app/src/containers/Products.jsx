@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, getAllProduct } from '../actions/product.action';
+import { addProduct, deleteProductById, getAllProduct } from '../actions/product.action';
 import CloseIcon from '@mui/icons-material/Close';
 // import category from '../../../backend/src/models/category';
 import { generateImgUrl } from "../urlConfig";
@@ -31,10 +31,9 @@ const Products = () => {
             }
         })
     }
-
     useEffect(() => {
         dispatch(getAllProduct());
-    },[])
+    }, [])
     const handleCreateProductForm = (e) => {
         e.preventDefault();
         const form = new FormData();
@@ -49,7 +48,18 @@ const Products = () => {
         }
         // console.log(product)
         dispatch(addProduct(form));
-        setToggleFormProduct('none')
+        setToggleFormProduct('none');
+        setProduct(() => {
+            return {
+                name: '',
+                price: '',
+                description: '',
+                quantity: '',
+                category: ''
+            }
+        });
+        setProductImages([]);
+        // setProductDetails
     }
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
@@ -63,19 +73,19 @@ const Products = () => {
         return options;
     }
     const handleProductImage = (e) => {
-        if(e.target.files.length > 0){
+        if (e.target.files.length > 0) {
             setProductImages([
                 ...productPicture,
                 e.target.files[0]
-            ]) ;
-            
+            ]);
+
         }
     }
     const showProductsDetails = (product) => {
         setToggleProduct("block");
         setProductDetails(product);
     }
-   
+// product details 
     const renderProductDetails = () => {
 
         if (!productDetails) {
@@ -84,15 +94,15 @@ const Products = () => {
         return (
             <>
                 <div className="product-content" style={{ display: toggleProduct }}>
-                    <span className='close' onClick={() => setToggleProduct("none")}><CloseIcon/></span>
+                    <span className='close' onClick={() => setToggleProduct("none")}><CloseIcon /></span>
                     <h1>product details</h1>
                     <div className="detail">
-                    <h2 htmlFor="name">name</h2>
-                    <p>{productDetails.name}</p>
+                        <h2 htmlFor="name">name</h2>
+                        <p>{productDetails.name}</p>
                     </div>
                     <div className="detail">
-                    <h2 htmlFor="desc">description</h2>
-                    <p> {productDetails.description} </p>
+                        <h2 htmlFor="desc">description</h2>
+                        <p> {productDetails.description} </p>
                     </div>
                     <div className="detail">
                         <h2>Category</h2>
@@ -101,22 +111,34 @@ const Products = () => {
                     <div className="productImg">
                         <div className="header">
 
-                        <h3>Product images</h3>
+                            <h3>Product images</h3>
                         </div>
                         <div className="images">
 
-                        {
-                            productDetails.productPicture.map((pic,ind )=>
-                                <div className="img" key={ind}>
-                                   <img alt={pic.img} src={generateImgUrl(pic.img)} />
-                                </div>
+                            {
+                                productDetails.productPicture.map((pic, ind) =>
+                                    <div className="img" key={ind}>
+                                        <img alt={pic.img} src={generateImgUrl(pic.img)} />
+                                    </div>
                                 )
                             }
-                            </div>
+                        </div>
                     </div>
                 </div>
             </>
         )
+    }
+    const updateProduct = () => {
+
+    }
+    const deleteProduct = (productId) => {
+        let currentProductId = productId;
+        // console.log(currentProductId)
+        dispatch(deleteProductById(currentProductId))
+        .then(result => {
+        dispatch(getAllProduct());
+        })
+     
     }
     return (
         <>
@@ -132,8 +154,8 @@ const Products = () => {
                             <form action="" onSubmit={handleCreateProductForm}>
                                 <div className="form-header">
 
-                                <h4>add Products</h4>
-                            <span className='close' onClick={() => setToggleFormProduct("none")}><CloseIcon/></span>
+                                    <h4>add Products</h4>
+                                    <span className='close' onClick={() => setToggleFormProduct("none")}><CloseIcon /></span>
                                 </div>
                                 <input className="form-input" value={product.name} placeholder={"Product name"} name="name" onChange={inputEvents} type="text" />
                                 <input className="form-input" value={product.price} placeholder={"price"} name="price" onChange={inputEvents} type="text" />
@@ -144,61 +166,66 @@ const Products = () => {
                                     <option value="">select category</option>
                                     {
 
-                                        createCategoryList(category.categories).map((option) => 
-                                            
-                                                <option key={option.value} value={option.value}>{option.name}</option>)
+                                        createCategoryList(category.categories).map((option) =>
+
+                                            <option key={option.value} value={option.value}>{option.name}</option>)
                                     }
                                 </select>
                                 <div className="picture-container">
                                     {
                                         productPicture.length > 0 ?
                                             productPicture.map((picture, ind) => <div key={ind} className='preview-image'>
-                                                <img src={URL.createObjectURL(picture)} alt={`${ind}-products`}/>
+                                                <img src={URL.createObjectURL(picture)} alt={`${ind}-products`} />
                                             </div>) : null
                                     }
                                 </div>
                                 <input type="file" name="productPicture" onChange={handleProductImage} className="form-input" />
                                 <div className="buttons">
-                                <button className="form-btn" onClick={() => setToggleFormProduct("none")}>cancel</button>    
-                                <button className="form-btn" type="submit" >submit</button>
+                                    <button className="form-btn" onClick={() => setToggleFormProduct("none")}>cancel</button>
+                                    <button className="form-btn" type="submit" >submit</button>
                                 </div>
                             </form>
                         </div>
-                   
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>S.N</th>
-                                <th>name</th>
-                                <th>Price</th>
-                                <th>quantity</th>
-                                <th>category</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                AllProducts.products.length > 0 ?
-                                    AllProducts.products.map((product, ind) =>
 
-                                        <tr onClick={() => showProductsDetails(product)} key={product._id}>
-                                            <td>{ind}</td>
-                                            <td>{product.name}</td>
-                                            <td>{product.price}</td>
-                                            <td>{product.quantity}</td>
-                                            <td>{product.category.name}</td>
-                                        </tr>
-                                    ) : null
-                            }
 
-                        </tbody>
-                    </table>
-                    {renderProductDetails()}
+                    </div>
+                    <div className="product-details">
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S.N</th>
+                                    <th>name</th>
+                                    <th>Price</th>
+                                    <th>quantity</th>
+                                    <th>category</th>
+                                    <th colSpan={2}>edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    AllProducts.products.length > 0 ?
+                                        AllProducts.products.map((product, ind) =>
+                                        <tr  key={product._id}>
+                                                <td>{ind}</td>
+                                                <td onClick={() => showProductsDetails(product)}>{product.name}</td>
+                                                <td >{product.price}</td>
+                                                <td>{product.quantity}</td>
+                                                <td>{product.category.name}</td>
+                                                <td><button onClick={updateProduct}> edit</button> </td>
+                                                <td><button onClick={() => deleteProduct(product._id)}>delete</button></td>
+                                            </tr>
+                                        ) : null
+                                }
 
-                </div> 
+                            </tbody>
+                        </table>
+                        {renderProductDetails()}
+
+                    </div>
                 </div>
             </div>
         </>
     )
 }
-
 export default Products;

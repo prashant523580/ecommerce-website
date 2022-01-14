@@ -3,7 +3,8 @@
 
 }
 nav{
-    background-color: var(--primary);
+    background-color: var(--bg-green);
+    z-index: 999;
 }
 nav  ul{
     list-style: none;
@@ -69,6 +70,9 @@ nav > ul > li > ul > li > ul >li  a{
     transition: left ease .3s ease;
 }
 
+nav > ul > li > ul > li > ul >li  a:hover{
+    color: var(--bg-green);
+}
 nav > ul > li > ul > li > ul >li  a::before{
     content:"\00bb";
     position: absolute;

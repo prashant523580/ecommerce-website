@@ -11,10 +11,3 @@
   flex-direction: column;
 }
 
-footer{
-  margin-top: auto;
-  background: var(--dark);
-  padding: 20px ;
-  color: white;
-  text-transform: capitalize;
-}

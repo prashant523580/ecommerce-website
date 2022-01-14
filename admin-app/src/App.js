@@ -15,18 +15,23 @@ import  { getInitialData, isUserLoggedIn} from "./actions";
 import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Category from './containers/Category';
+import Pages from './containers/Page';
 function App() {
   const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth)
-;  useEffect(() => {
+  const auth = useSelector(state => state.auth);
+  //componentDidMount or componentDidUpdate  
+  useEffect(() => {
     if (!auth.authenticate) {
 
         dispatch(isUserLoggedIn());
     }
-    dispatch(getInitialData())
+    if(auth.authenticate){
+
+      dispatch(getInitialData())
+    }
     // dispatch(getAllProduct());
     // dispatch(getAllCategory())
-}, []);
+}, [auth]); // componentDidUpdate
   return (
       <>     
           <Navbar/>
@@ -35,7 +40,7 @@ function App() {
             <PrivateRoute exact  path="/products" component={Products}/>
             <PrivateRoute exact  path="/orders" component={Orders}/>
             <PrivateRoute exact  path="/category" component={Category}/>
-
+            <PrivateRoute exact  path="/pages" component={Pages}/>
             <Route exact  path="/signup">
                 <SignUp/>
             </Route>

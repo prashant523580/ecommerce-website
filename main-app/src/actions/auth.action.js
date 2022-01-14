@@ -15,8 +15,8 @@ export const login = (user) => {
         //     body: JSON.stringify({...user}),
         //     // credentials :"include"
         // });
-        const res= await axios.post("/admin/signin",{...user});
-        console.log(res)
+        const res= await axios.post("/signin",{...user});
+    
         if(res.status === 200){
             const {user,token} = await res.data;
             console.log(user)
@@ -52,7 +52,7 @@ console.log(user)
         //     },
         //     body: JSON.stringify({...user})
         // });
-        const res = await axios.post("/admin/signup",{
+        const res = await axios.post("/signup",{
             ...user
         })
         console.log(res)
@@ -102,24 +102,13 @@ export const isUserLoggedIn =()=> {
 export const signout = ()=> {
     return async dispatch => {
         dispatch({type: authConstants.LOGOUT_REQUEST})
-        const res = await fetch(api+"/admin/signout",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json"
-            }
-        });
-        console.log(res)
-        if(res.status === 200){
+       
+     
 
             localStorage.clear();
             dispatch({
                 type: authConstants.LOGOUT_SUCCESS
             })
-        }else{
-            dispatch({
-                type: authConstants.LOGOUT_FAILURE,
-                payload: {error : res.data.error}
-            })
         }
-    }
+    
 }

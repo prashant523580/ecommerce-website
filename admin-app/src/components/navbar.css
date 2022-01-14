@@ -2,7 +2,7 @@ nav{
     /* background-color: var(--main-bg); */
     position: sticky;
     width: 100%;
-    background-color: black;
+    background-color: var(--bg-green);
     display: flex;
     top: 0;
     align-items: center;
@@ -34,17 +34,22 @@ nav{
     display: none;
   }
   nav .nav-logo .logo {
-    color: rgb(248, 248, 248);
+    color: rgba(255, 255, 255, 0.726);
     text-transform: capitalize;
   }
   nav .nav-logo .logo h3{
-    text-decoration:underline;
-    text-shadow: 0 0 4px rgb(252, 98, 9);
+    text-shadow: 0 0 50px rgb(49, 46, 44);
+    font-weight: bold;
     /* line-height: 20px; */
   }
   nav .nav-logo .logo h3::first-letter{
     font-size: 2.9rem;
-    color: #f05901;
+    text-decoration:underline;
+    font-weight: bold;
+
+    text-shadow: 0 0 30px rgb(128, 122, 119);
+    /* color: #f05901; */
+    color: rgba(248, 247, 247, 0.473);
   }
   nav .nav-links .nav-link{
     text-decoration: none;
@@ -61,7 +66,7 @@ nav{
   .active{
     transform: scale(.7);
     background-color: rgb(11, 85, 107);
-    border-radius: 20%;
+    border-radius: 10%;
     animation: scale-out .2s ease;
     box-shadow:
     3px -5px 0px 3px rgba(245, 78, 0, 0.897),
@@ -95,14 +100,14 @@ nav{
   }
   footer{
     margin-top: auto;
-    background-color: var(--main-bg);
-    background-color: black;
+    background-color: var(--bg-green);
+    /* background-color: black; */
     padding: .3rem .5rem;
     z-index: 99999;
     width: 100%;
   }
   footer p{
-        color: rgb(88, 92, 89);
+        color: rgb(238, 241, 239);
         text-transform: capitalize;
         /* text-align: center; */
   }

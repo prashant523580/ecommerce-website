@@ -39,3 +39,24 @@
     transform: rotate(360deg);
   }
 }
+
+.btn-danger{
+  background-color: var(--danger);
+  color: white;
+}
+.btn-alert{
+  color: white;
+  background-color: var(--alert);
+}
+.btn-success{
+  color: white;
+  background-color: var(--success);
+}
+.btn-warning{
+  color:white;
+  background-color: var(--warning);
+}
+.btn-dark{
+  color: white;
+  background-color: var(--dark);
+}

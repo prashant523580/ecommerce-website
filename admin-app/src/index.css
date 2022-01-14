@@ -4,18 +4,25 @@
   box-sizing: border-box;
 }
 :root{
-  --main-bg : rgb(37, 150, 107);
+  --main-bg : rgb(15, 94, 63);
+  --bg-green : rgb(4 60 60);
   --bg-gray : rgb(18, 143, 143);
   --bg: rgb(129, 156, 156);
   --form-bg:#0f5a5a;
   --body-bg: rgb(18, 72, 119);
+  --danger: red;
+  --warning: orange;
+  --light: white;
+  --dark: #555555;
+  --alert: orange;
+  --info: rgb(128, 170, 184);
 }
 html {
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
+  -moz-osx-font-smoothing: grayscale;
   /* height: 100%;
   display: flex;
   flex-direction: column; */

@@ -25,16 +25,20 @@ exports.signin = async (req, res) => {
             const isMatch = await bcrypt.compare(password, verifyUser.password);
             const token = await verifyUser.generateToken();
             res.cookie("jwt", token, {
-                expires: new Date(Date.now() + 2900000),
+                expires: new Date(Date.now()),
                 httpOnly: true,
-            })
+                // sameSite:'lax',
+                secure: true,
+                // signed : true
+            });
+            console.log(res.cookie)
+            
             // console.log(token)
             if (!isMatch || verifyUser.role === "user") {
                 res.status(422).json({
                     error: "admin login error"
                 });
             } else {
-                console.log(verifyUser)
                 res.status(200).json({
                     message: "admin login success",
                     token,
@@ -42,12 +46,12 @@ exports.signin = async (req, res) => {
                 })
             }
         } else {
-            res.status(400).json({
+            res.status(422).json({
                 error: "login error"
             })
         }
     } catch (err) {
-        console.log(err)
+        res.status(422).json(err);
     }
 }
 
@@ -79,7 +83,6 @@ exports.signup = async (req, res) => {
                 role : "admin"
             })
             const token = await user.generateToken();
-            console.log(user)
             await user.save();
             res.status(201).json({
                 message: "admin registered successfully",

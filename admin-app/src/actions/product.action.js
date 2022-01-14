@@ -6,7 +6,6 @@ export const addProduct = form => {
             type: productsConstants.ADD_PRODUCT_REQUEST
         });
         const res = await axios.post('product/create',form);
-        console.log(res)
         if(res.status === 201){
             dispatch({
                 type: productsConstants.ADD_PRODUCT_SUCCESS,
@@ -14,6 +13,7 @@ export const addProduct = form => {
                     products: res.data.product
                 }
             })
+            dispatch(getAllProduct());
         }else{
             dispatch({
                 type:productsConstants.ADD_PRODUCT_FAILURE,
@@ -30,7 +30,7 @@ export const getAllProduct =() => {
         dispatch({
             type: productsConstants.GET_ALL_PRODUCTS_REQUEST
         })
-        const res = await axios.get("/product/getproduct");
+        const res = await axios.post("/product/getproduct");
         if(res.status === 200){
             const{products} = res.data;
             dispatch({
@@ -43,6 +43,15 @@ export const getAllProduct =() => {
                 error:res.data.error
             })
         }
-        console.log(res)
+    }
+}
+
+export const deleteProductById = (productId) => {
+    console.log(productId)
+    return async (dispatc) => {
+        const res = await axios.delete('/product/delete',{data: {productId}});
+        if(res.status === 202){
+            return true;
+        }
     }
 }

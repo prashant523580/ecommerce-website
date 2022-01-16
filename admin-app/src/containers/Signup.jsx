@@ -1,14 +1,19 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { NavLink,Redirect } from "react-router-dom";
 import img from "../img/18695.jpg";
 import "./form.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { UserSignup} from '../actions';
+import Modal from './ui/modal/Modal';
+import { userConstants } from '../actions/constant';
 const SignUp = () => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
     const current_user = useSelector(state => state.user);
+
+    const [errorModal,setErrorModal] = useState(false);
+    const [error, setError] = useState('');
 
     const [user, setUser] = useState({
         name:"",
@@ -17,6 +22,34 @@ const SignUp = () => {
         phone: "",
         password:""
     });
+    const showErrorModal = () => {
+        
+        return(
+            <>
+            <Modal 
+            close={() => setErrorModal(false)}
+            show={errorModal} header={"error"} classname={"error"} children={
+                <p > {error}</p>
+            }/>
+            </>
+        )
+    }
+   useEffect(() => {
+       if(current_user.error){
+
+    }
+    setError(current_user.error);
+        setErrorModal(true);
+        setTimeout(() => {
+
+            dispatch({
+                type:userConstants.USER_REGISTER_FAILURE,
+                payload:{
+                    error: ""
+                }
+            })
+        },6000);
+},[current_user.error]);
     if (auth.authenticate) {
         return <Redirect to={'/'} />
     }
@@ -49,6 +82,8 @@ const RegisterUser = async(e) => {
 if(auth.authenticate){
     return <Redirect to={"/"}/>
 }
+
+
     return (
 
         <>
@@ -98,6 +133,8 @@ if(auth.authenticate){
                     </div>
                 </form>
             </div>
+
+            {error && showErrorModal() }
         </>
     )
 }

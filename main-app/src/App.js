@@ -10,6 +10,7 @@ import Footer from "./components/footers";
 import { Route,Switch} from 'react-router-dom';
 import ProductLists from "./containers/ProductLists/index";
 import ProductDetailPage from "./containers/ProductDetails/index.productDetails";
+import CartPage from "./containers/CartPage/index.cart";
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth);
@@ -21,7 +22,7 @@ function App() {
     if(!auth.authenticate)(
       dispatch(isUserLoggedIn())
     )
-  },[auth.authenticate])
+  },[auth])
   return (
     <>
 
@@ -29,6 +30,7 @@ function App() {
       <Menu />
       <Switch>
           <Route exact path={"/"} component={HomePage} />
+          <Route exact path="/cart" component={CartPage}/>
           <Route exact path={"/:productSlug/:productId/p"} component={ProductDetailPage}/>
           <Route exact  path={"/:slug"} component={ProductLists} />
         

@@ -167,7 +167,7 @@ const Header = () => {
                 </div>
             
                 <div className="cart">
-                    cart
+                    <a href="/cart"> cart</a>
                 </div>
             {modal()}
         </div>

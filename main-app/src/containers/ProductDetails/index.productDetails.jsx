@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetailsById } from "../../actions";
+import { addToCart, getProductDetailsById } from "../../actions";
 import { generateImgUrl } from "../../urlConfig";
 import "./style.css";
 
 const ProductDetailPage = (props) => {
     const dispatch = useDispatch();
     const product = useSelector(state => state.product);
+    const {productDetails}= product;
     useEffect(() => {
         const { productId } = props.match.params;
         const payload = {
@@ -15,13 +16,19 @@ const ProductDetailPage = (props) => {
                 productId
             }
         }
+        console.log(payload)
         dispatch(getProductDetailsById(payload));
     }, []);
     console.log(product.productDetails)
-
+    const addTOCart = () => {
+        let {_id,name,price}= productDetails;
+        let img = productDetails.productPicture[0].img;
+        dispatch(addToCart({_id,name,price,img}));
+    }
     if (Object.keys(product.productDetails).length === 0) {
         return null;
     }
+    
     return (
         <>
             <div className="product-details-container">
@@ -43,7 +50,7 @@ const ProductDetailPage = (props) => {
                         </div>
                     </div>
                     <div className="buttons">
-                        <button className="btn">add to cart</button>
+                        <button onClick={addTOCart} className="btn">add to cart</button>
                         <button className="btn">buy</button>
                     </div>
                 </div>

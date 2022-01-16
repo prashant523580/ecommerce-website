@@ -4,16 +4,17 @@ import {
 
 const initState = {
     token: null,
-    user:{
-        name:'',
-        username:'',
-        email:'',
-        picture:''
+    user: {
+        name: '',
+        username: '',
+        email: '',
+        picture: ''
     },
-    authenticate : false,
+    authenticate: false,
     authenticating: false,
-    loading:false,
-    message : ""
+    loading: false,
+    message: "",
+    error: null
 }
 export default (state = initState, action) => {
 
@@ -25,33 +26,39 @@ export default (state = initState, action) => {
             }
             break;
         case authConstants.LOGIN_SUCCESS:
-                state ={
-                    ...state,
-                    user: action.payload.user,
-                    token: action.payload.token,
-                    authenticate:true,
-                    authenticating:false
-                }
-                break;
-            case authConstants.LOGOUT_REQUEST:
-                state = {
-                 ...state,
-                 loading:true,
+            state = {
+                ...state,
+                user: action.payload.user,
+                token: action.payload.token,
+                authenticate: true,
+                authenticating: false
+            }
+            break;
+        case authConstants.LOGIN_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+            }
+            break;
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...state,
+                loading: true,
 
-                }
-                break;
-            case authConstants.LOGOUT_SUCCESS:
-                state = {
-                    ...initState,
-                }
-                break;
-            case authConstants.LOGOUT_FAILURE:
-                state = {
-                    ...state,
-                    error : action.payload.error,
-                    loading:false
-                }
-                break;
+            }
+            break;
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
+                ...initState,
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+            break;
     }
     return state;
 }

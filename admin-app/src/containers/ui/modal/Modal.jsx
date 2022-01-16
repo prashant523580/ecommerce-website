@@ -2,7 +2,7 @@ import React, { Children } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./style.css";
 const Modal = (props) => {
-    const {children,header,show,close,className} = props;
+    const {children,header,show,close,classname} = props;
     // if(show){
         
     // }
@@ -10,7 +10,7 @@ const Modal = (props) => {
         show &&
         <>
         
-            <div className={`${!show  ? `modal-form ` + className : "modal-form"}`} >
+            <div className={`${classname  ? `modal-form ${classname}` : "modal-form"}`} >
                 <form action="">
 
                 <div className="form-header">

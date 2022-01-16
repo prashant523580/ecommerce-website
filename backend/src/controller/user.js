@@ -9,7 +9,6 @@ exports.signin = async (req, res) => {
             email_user,
             password
         } = req.body;
-        console.log(email_user, password);
         if (!email_user || !password) {
             return res.status(422).json({
                 error: "fill data"
@@ -41,12 +40,12 @@ exports.signin = async (req, res) => {
                 })
             }
         } else {
-            res.status(400).json({
-                error: "login error"
+            res.status(422).json({
+                error: "somethings went wrongs"
             })
         }
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        res.status(422).json({error})
     }
 }
 
@@ -71,8 +70,7 @@ exports.signup = async (req, res) => {
             username:username
         });
         if (existUser) {
-            console.log("true")
-            res.status(400).json({
+            res.status(422).json({
                 error: "already exist"
             })
         }
@@ -84,13 +82,12 @@ exports.signup = async (req, res) => {
             password,
             role:"user"
         });
-        console.log(user)
         await user.save();
         res.status(201).json({
             message: "user registered successfully"
         })
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+       res.status(422).json({error})
     }
 }
 exports.requireSignin =(req,res,next) =>{

@@ -13,7 +13,7 @@
     overflow-y: auto;
     animation: slide- .3s ease;
     z-index: 99999999;
-    background-color: rgb(201 213 217);
+    /* background-color: rgb(201 213 217); */
     
   }
 
@@ -181,3 +181,14 @@ form .form-group .buttons {
   }
   
 } */
+
+.modal-form.error *:not(h1,h2,h3,h4,h5){
+  color: rgb(195, 7, 7);
+  background-color: white ;
+}
+.modal-form.error .form-header{
+  background-color: rgb(94, 28, 28);
+}
+.modal-form.error h4{
+  color:white
+}

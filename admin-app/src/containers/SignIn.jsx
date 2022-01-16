@@ -1,25 +1,54 @@
-import React from 'react';
+import React,{useEffect}  from 'react';
 import { login } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import img from "../img/4115337.jpg"
 import "./form.css";
+import Modal from './ui/modal/Modal';
+import { authConstants } from '../actions/constant';
 const SignIn = (props) => {
     const dispatch = useDispatch();
     const [email_user, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [error, setError] = useState('');
+    const [error, setError] = useState('');
+    const [errorModal,setErrorModal] = useState(false);
     const auth = useSelector(state => state.auth);
-   
+
+    const showErrorModal = () => {
+        
+        return(
+            <>
+            <Modal 
+            close={() => setErrorModal(false)}
+            show={errorModal} header={"error"} classname={"error"} children={
+                <p style={{color:"red"}}> {error}</p>
+            }/>
+            </>
+        )
+    }
+    
+   useEffect(() => {
+        setError(auth.error);
+        setErrorModal(true);
+        setTimeout(() => {
+
+            dispatch({
+                type:authConstants.LOGIN_FAILURE,
+                payload:{
+                    error: ""
+                }
+            })
+        },4000);
+    },[auth.error]);
     const userLogin = (e) => {
         e.preventDefault();
-        console.log("clicked")
         const user = {
             email_user,
             password
         }
         dispatch(login(user));
+
     }
     if (auth.authenticate) {
         return <Redirect to={'/'} />
@@ -33,6 +62,8 @@ const SignIn = (props) => {
             pass.type = "password"
         }
     }
+    
+
     return (
         <>
             <div className="form-container">
@@ -60,11 +91,12 @@ const SignIn = (props) => {
                         </label>
                     </div>
                     <div className="btn-content">
-                        <NavLink activeClassName="active" className="form-link" to='/signup'> not a member </NavLink>
+                        <NavLink activeClassName="active" className="form-link" to='/signup'> not a member ? </NavLink>
                         <button className="form-btn" >sign in</button>
                     </div>
                 </form>
             </div>
+            {error ? showErrorModal() : null}
         </>
     )
 }

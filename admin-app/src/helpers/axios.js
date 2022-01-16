@@ -19,16 +19,29 @@ axiosInstance.interceptors.request.use((req) => {
         return req;
 })
 
+// axiosInstance.interceptors.response.use((res) => {
+//         return res;
+//  }
+// ,(err) => {
+//         if(err.response.status >= 400){
+//                 StorageEvent.dispatch({
+//                         type: authConstants.LOGOUT_SUCCESS
+//                 })
+//         }
+
+//         return Promise.reject(err);
+// }
+// )
 axiosInstance.interceptors.response.use((res) => {
         return res;
-},(err) => {
-        console.log(err.response);
-        if(err.response.status >= 400){
-                StorageEvent.dispatch({
-                        type: authConstants.LOGOUT_SUCCESS
-                })
+    }, (error) => {
+        const status = error.response ? error.response.status : 422;
+        if(status && status === 422){
+            localStorage.clear();
+            store.dispatch({ type: authConstants.LOGOUT_SUCCESS });
         }
-
-        return Promise.reject(err);
-})
+        return Promise.reject(error);
+    })
+    
+    
 export default axiosInstance;

@@ -31,7 +31,7 @@ function App() {
     }
     // dispatch(getAllProduct());
     // dispatch(getAllCategory())
-}, [auth]); // componentDidUpdate
+}, [auth.authenticate]); // componentDidUpdate
   return (
       <>     
           <Navbar/>

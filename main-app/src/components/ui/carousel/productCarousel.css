@@ -1,34 +1,39 @@
-.carousel-container{
+.product-carousel-container{
     width: 100%;
 }
-.carousel-container .carousel{
+.product-carousel-container .carousel{
     /* height:50% ; */
     overflow: hidden;
     position: relative;
 
 }
-.carousel-container .carousel .inner{
+.product-carousel-container .carousel .inner{
     white-space: nowrap;
-    transition: transform .2s ease;
+    transition: transform .6s ease;
+    display: flex;
+    justify-content: flex-start;
+    /* align-items: center ; */
 }
-.slide{
-    height: 60vh;
+ .product-carousel-container .slide{
+    /* place-self: center; */
+    height: 40vh;
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     /* background: var(--main-bg); */
     color:white;
+    margin-left: 10px;
 }
-.carousel-container .buttons{
+.product-carousel-container .buttons{
 
     transition: all .3s ease;
     opacity: 0;
     /* z-index: 1; */
 }
-.carousel-container .carousel:hover .buttons{
+.product-carousel-container .carousel:hover .buttons{
     opacity: 1;
 }
-.carousel-container .buttons button{
+.product-carousel-container .buttons button{
     padding: 30px 14px;
     position: absolute;
     outline: 0;
@@ -42,21 +47,21 @@
     color: rgb(14, 14, 19);
     background-color: rgba(116, 112, 109, 0.699);
 }
-.carousel-container .buttons button:first-child{
+.product-carousel-container .buttons button:first-child{
     left: 0;
 }
-.carousel-container .buttons button:last-child{
+.product-carousel-container .buttons button:last-child{
     right: 0;
 }
-.carousel-container .buttons button:hover{
+.product-carousel-container .buttons button:hover{
     opacity: .8;
     box-shadow: 0 0 1px 2px rgb(255, 254, 254);
 }
-.carousel-container .buttons button:first-child:active{
+.product-carousel-container .buttons button:first-child:active{
     transform: translateX(10px) translateY(-50%);
     box-shadow: -10px 0px 0px 0px rgba(230, 227, 227, 0.808);
 }
-.carousel-container .buttons button:last-child:active{
+.product-carousel-container .buttons button:last-child:active{
     transform: translateX(-10px) translateY(-50%);
     box-shadow: 10px 0px 0px 0px rgba(235, 230, 230, 0.877);
 }

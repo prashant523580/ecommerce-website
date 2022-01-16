@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductPage } from "../../../actions";
 import Card from "../../../components/ui/card/index.card";
 import Carousel, { CarouselItem } from "../../../components/ui/carousel/carousel";
+import ProductCarousel,{ProductCarouselItem} from "../../../components/ui/carousel/ProductCarousel";
 import getParam from "../../../utils/getParam";
 
 
@@ -34,9 +35,16 @@ const ProductPage = (props) => {
                 }
             </Carousel>
 
-            <Card >
+            <Card header={{
+
+                leftHeader:"products"
+            }
+            } >
+                <ProductCarousel>
                 {
                     page.products && page.products.map((product, ind) =>
+                      <ProductCarouselItem>
+
                         <div className="product" key={ind}>
                             <div className="product-img" >
 
@@ -44,8 +52,11 @@ const ProductPage = (props) => {
                             </div>
                             <p>shop now</p>
                         </div>
+                      </ProductCarouselItem>
                     )
+                
                 }
+              </ProductCarousel>
             </Card>
         </>
     )

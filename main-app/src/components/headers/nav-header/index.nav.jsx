@@ -8,11 +8,14 @@ const Modal = (props) => {
     }
 
     return (
-        <div className="modal">
+        <div className={props.classname ? `modal ${props.classname}` : `modal`}>
+                {props.title &&
+                
             <div className="modal-header">
-                <h4>{props.title}</h4>
-                <span className="close" onClick={props.onClick}>X</span>
+                <h4>{props.title} </h4>
+                <span className="close" onClick={props.onClick}>X</span>             
             </div>
+                }
             <div className="modal-body">
                 {props.children}
             </div>
@@ -31,7 +34,7 @@ const Dropdown = (props) => {
     
     return (
         <div className="dropdown" onClick={toggleDropdown}>
-            <div className="dropdown-btn">{props.menu}</div>
+            <div className={isDropDown ? `dropdown-btn active-lightblue` : "dropdown-btn"}>{props.menu}</div>
             {isDropDown && <div className="dropdown-content">
                 <ArrowDropUpIcon> </ArrowDropUpIcon>
                 <div className="dropdown-links">

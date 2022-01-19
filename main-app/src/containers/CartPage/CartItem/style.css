@@ -1,6 +1,13 @@
 .cart {
 width: 90vmin;
 margin: .6rem;
+background-color: var(--bg-green);
+padding: 10px;
+color: white;
+border-radius: .2rem;
+}
+.cart h4{
+    text-transform: capitalize;
 }
 .cart-body{
     display: flex;
@@ -20,21 +27,28 @@ margin: .6rem;
 .cart-body .cart-details{
 display: flex;
 justify-content: space-between;
-padding: .3rem;
+padding: .9rem;
 width: 100%;
 }
 .cart-footer{
-
+margin: .3rem 0;
 }
+
 .cart-footer .quantity-control{
 
 }
 .cart-footer .quantity-control .quantity{
     width: 40px;
     text-align: center;
+    padding: 9px 12px;
 }
 .cart-footer .quantity-control button{
     outline: 0;
     border: 0;
     padding: 10px 12px;
+}
+button.remove-btn{
+    background-color: var(--danger);
+    color: white;
+    text-transform: capitalize;
 }

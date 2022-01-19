@@ -28,9 +28,9 @@ exports.signin = async (req, res) => {
                 httpOnly: true
             })
             // console.log(token)
-            if (!isMatch && verifyUser.role === "admin") {
+            if (isMatch && verifyUser.role === "admin") {
                 res.status(422).json({
-                    error: "user login error"
+                    error: "admin login error"
                 });
             } else {
                 res.status(200).json({

@@ -20,8 +20,7 @@ function HomePage(props) {
                 //     console.log(cate.children)
                 // })
                 products.products.map((product,ind) => {
-                            {console.log(product)}
-                        return <CarouselItem><img src={generateImgUrl(product.productPicture[0].img)}/></CarouselItem>
+                        return <CarouselItem key={ind}><img src={generateImgUrl(product.productPicture[0].img)}/></CarouselItem>
                         
                 })
             }

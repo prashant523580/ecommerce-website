@@ -12,7 +12,7 @@ function Menu(props) {
             category_list.push(
                 <li key={category.name}>
                     {
-                        category.parentId ? <a href={`${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</a> :
+                        category.parentId ? <a href={`/${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</a> :
                         <span> {category.name}</span>
                     }
                     {category.children.length > 0 ? (<ul>{renderCategory(category.children)} </ul>) : null}

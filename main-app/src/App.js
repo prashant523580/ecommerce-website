@@ -14,15 +14,16 @@ import CartPage from "./containers/CartPage/index.cart";
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth);
+  const category = useSelector(state => state.category);
   useEffect(() => {
     dispatch(getAllCategory());
-  })
+  },[])
 
   useEffect(()=> {
     if(!auth.authenticate)(
       dispatch(isUserLoggedIn())
     )
-  },[auth])
+  },[auth.authenticate])
   return (
     <>
 

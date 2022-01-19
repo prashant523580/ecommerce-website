@@ -8,18 +8,18 @@ const CartPage = (props) => {
     const auth = useSelector(state => state.auth);
     const [cartItems,setCartItems] = useState(cart.cartItems);
     const dispatch = useDispatch();
-    console.log({cartItems,auth});
     useEffect(()=>{
-setCartItems(cart.cartItems);
-    },[cart]);
-
+        setCartItems(cart.cartItems);
+    },[cart.cartItems]);
+    
+    // console.log(cartItems)
     useEffect(() => {
         if(auth.authenticate){
             dispatch(getCartItems())
         }
-    },[auth]);
+    },[auth.authenticate]);
 
-console.log(cartItems)
+
     return(
         <>
       

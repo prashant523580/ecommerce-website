@@ -3,28 +3,33 @@ import { CategoryConstants } from "./constant";
 
 export const getAllCategory = () => {
     return async dispatch => {
-        const res = await axios.get(`/category/getcategory`);
-        dispatch({
-            type:CategoryConstants.GET_CATEGORY_REQUEST
-        })
-        if(res.status === 200){
-            const categoryList = res.data;
+        try{
+
+            const res = await axios.get(`/category/getcategory`);
             dispatch({
-                type: CategoryConstants.GET_CATEGORY_SUCCESS,
-                payload: {
-                    categories : categoryList
-                }
+                type:CategoryConstants.GET_CATEGORY_REQUEST
             })
-        }else{
-            dispatch({
-                type: CategoryConstants.GET_CATEGORY_FAILURE,
-                payload: {
-                    error : res.data.error
-                }
-            })
+            if(res.status === 200){
+                const categoryList = res.data;
+                dispatch({
+                    type: CategoryConstants.GET_CATEGORY_SUCCESS,
+                    payload: {
+                        categories : categoryList
+                    }
+                })
+            }else{
+                dispatch({
+                    type: CategoryConstants.GET_CATEGORY_FAILURE,
+                    payload: {
+                        error : res.data.error
+                    }
+                })
+            }
+        }catch(err){
+            console.log(err)
+        }
         }
     }
-}
 
 export const addCategory = (form) => {
     console.log(form)

@@ -13,7 +13,7 @@ const CartItem = (props) => {
                 </div>
                 <div className="cart-details">
                     <div>
-                        <p>{name}</p>
+                        <h4>{name}</h4>
                         <p>Rs.{price}</p>
                     </div>
                     <div>delivery in </div>
@@ -22,13 +22,16 @@ const CartItem = (props) => {
             <div className="cart-footer">
                 <div className="quantity-control">
 
-                    <button>-</button>
+                    <button>-</button> 
                     <input className="quantity" value={qty} readOnly />
-                    <button>+</button>
-                </div>
-                <button> save for later</button>
-                <button onClick={() => props.onRemoveCartItem(_id)}>
+                    <button>+</button>&nbsp;
+                <button className="remove-btn" onClick={() => props.onRemoveCartItem(_id)}>
                     remove</button>
+                </div>
+                </div>
+                <div className="buttons">
+
+                {/* <button> save for later</button> */}
 
             </div>
         </div>

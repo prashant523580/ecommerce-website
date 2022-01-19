@@ -6,40 +6,44 @@ import { authConstants } from "./constant"
 export const login = (user) => {
 
     return async (dispatch)=> {
-        dispatch({type:authConstants.LOGIN_REQUEST});
-        // const res = await fetch(`${api}/admin/signin`,{
-        //     method:"post",
-        //     headers:{
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({...user}),
-        //     // credentials :"include"
-        // });
-        const res= await axios.post("/signin",{...user});
-    
-        if(res.status === 200){
-            const {user,token} = await res.data;
-            console.log(user)
-            localStorage.setItem('token',token);
-            localStorage.setItem("user", JSON.stringify(user))
-            dispatch({
-                type: authConstants.LOGIN_SUCCESS,
-                payload:{
+        try{
 
-                    token,
-                    user
+            dispatch({type:authConstants.LOGIN_REQUEST});
+            
+            const res= await axios.post("/signin",{...user});
+            
+            if(res.status === 200){
+                const {user,token} = await res.data;
+                console.log(user)
+                localStorage.setItem('token',token);
+                localStorage.setItem("user", JSON.stringify(user))
+                dispatch({
+                    type: authConstants.LOGIN_SUCCESS,
+                    payload:{
+                        
+                        token,
+                        user
+                    }
+                })
+            }else{
+                if(res.status === 422){
+                    dispatch({
+                        type:authConstants.LOGIN_FAILURE,
+                        payload:{error: res.data.error}
+                    })
                 }
-            })
-        }else{
-            if(res.status === 400){
+            }
+        }catch(err){
+            console.log(err.response)
+            if(err.response.status === 422){
                 dispatch({
                     type:authConstants.LOGIN_FAILURE,
-                    payload:{error: res.data.error}
+                    payload:{error: err.response.data.error}
                 })
             }
         }
+        }
     }
-}
 export const signup = (user) => {
 console.log(user)
     return async (dispatch)=> {
@@ -91,7 +95,7 @@ export const isUserLoggedIn =()=> {
         }else{
             dispatch({
                 type:authConstants.LOGIN_FAILURE,
-                payload:{error: "failed to login"}
+                payload:{error: ""}
             })
         }
     }

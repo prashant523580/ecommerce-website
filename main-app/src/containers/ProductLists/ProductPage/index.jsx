@@ -27,7 +27,7 @@ const ProductPage = (props) => {
                 {
                     page.banners && page.banners.map((banner, ind) =>
                         <CarouselItem key={ind}>
-                            <a href={banner.navigateTo} >
+                            <a href={`/${banner.navigateTo}`} >
                                 <img src={banner.img} alt="" />
                             </a>
                         </CarouselItem>

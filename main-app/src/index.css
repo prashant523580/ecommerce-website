@@ -12,6 +12,7 @@
   --light: white;
   --dark: #333;
   --info: lightblue;
+  --danger: rgb(135, 3, 3);
 }
 :root{
   --main-bg : rgb(46, 145, 128);
@@ -19,6 +20,7 @@
   --bg-gray : rgb(18, 143, 143);
   --bg-form:#0f5a5a;
   --bg-body: rgb(189, 196, 209);
+  --lightblue: rgb(20, 117, 152);
 
 }
 body {

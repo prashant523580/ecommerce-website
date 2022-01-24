@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import logo from './logo.svg';
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
-import { getAllCategory, isUserLoggedIn } from "./actions"
+import { getAllCategory, getCartItems, getInitialData, isUserLoggedIn } from "./actions"
 import HomePage from "./containers/HomePage/index";
 import Header from "./components/headers/index";
 import Menu from "./components/Menu/index";
@@ -16,13 +16,19 @@ function App() {
   const auth = useSelector(state => state.auth);
   const category = useSelector(state => state.category);
   useEffect(() => {
-    dispatch(getAllCategory());
+    // dispatch(getAllCategory());
+    dispatch(getInitialData());
   },[])
 
   useEffect(()=> {
     if(!auth.authenticate)(
       dispatch(isUserLoggedIn())
     )
+  },[auth.authenticate])
+  useEffect(() => {
+    if(auth.authenticate){
+      dispatch(getCartItems());
+    }
   },[auth.authenticate])
   return (
     <>

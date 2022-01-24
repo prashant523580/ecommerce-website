@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductPage } from "../../../actions";
 import Card from "../../../components/ui/card/index.card";
 import Carousel, { CarouselItem } from "../../../components/ui/carousel/carousel";
-import ProductCarousel,{ProductCarouselItem} from "../../../components/ui/carousel/ProductCarousel";
+import ProductCarousel, { ProductCarouselItem } from "../../../components/ui/carousel/ProductCarousel";
 import getParam from "../../../utils/getParam";
 
 
@@ -19,8 +19,8 @@ const ProductPage = (props) => {
         }
 
         dispatch(getProductPage(payload));
-    }, [])
- 
+    },[])
+console.log(page)
     return (
         <>
             <Carousel>
@@ -37,28 +37,25 @@ const ProductPage = (props) => {
 
             <Card header={{
 
-                leftHeader:"products"
+                leftHeader: "products"
             }
             } >
-                <ProductCarousel>
-                {
-                    page.products && page.products.map((product, ind) =>
-                      <ProductCarouselItem>
-
-                        <div className="product" key={ind}>
-                            <div className="product-img" >
-
-                                <img src={product.img} />
-                            </div>
-                            <p>shop now</p>
-                        </div>
-                      </ProductCarouselItem>
-                    )
+                     
+                          {
+                              page.products &&   page.products.map((product,ind) => 
                 
-                }
-              </ProductCarousel>
-            </Card>
-        </>
+                              <div className="product">
+                                  <div className=" product-img">
+
+                                  <img src={product.img} alt={product.img} />
+                                  </div>
+                              </div>
+                              )
+                          }
+                     
+                  
+</Card>
+</>
     )
 }
 

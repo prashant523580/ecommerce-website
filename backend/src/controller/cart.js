@@ -78,3 +78,24 @@ exports.getCartItems = (req, res) => {
       });
    
   };
+
+exports.deleteCartItems = (req,res) => {
+    const {productId} = req.body.payload;
+    console.log(productId);
+    if(productId){
+        Cart.update({user: req.user._id},{
+
+            $pull : {
+                cartItems :{
+                    product:productId
+                }
+            }
+        }
+    ).exec((err,result) => {
+        if(err) return res.status(422).json({error: err});
+        if(result){
+            res.status(202).json({result});
+        }
+    })
+    }
+}

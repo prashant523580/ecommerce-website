@@ -28,7 +28,7 @@ const Carousel = ({ children }) => {
 
                 updateActive(activeIndex + 1)
             }
-        },3000);
+        },5000);
         return () => {
             if(interval){
                     clearInterval(interval)
@@ -76,11 +76,13 @@ const Carousel = ({ children }) => {
                             )
                         })
                     } */}
-                    <button
+                    
+                        <button
                         onClick={() => {
                             updateActive(activeIndex + 1)
                         }}
-                    >&#8250;</button>
+                        >&#8250;</button>
+                    
                 </div>
                 </div>
             </div>

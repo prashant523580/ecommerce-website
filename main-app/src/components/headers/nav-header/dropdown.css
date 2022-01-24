@@ -10,6 +10,11 @@
     cursor: pointer;
     padding: .3rem .6rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: .3rem;
 }
 .active-lightblue{
     background-color: var(--lightblue);
@@ -22,7 +27,7 @@
 }
 .dropdown .dropdown-content{
     position: absolute;
-    top: 25px;
+    top: 27px;
     transition: height .3s ease;
     /* display: none; */
     flex-direction: column;

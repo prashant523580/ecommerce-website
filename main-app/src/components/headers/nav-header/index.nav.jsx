@@ -8,10 +8,12 @@ const Modal = (props) => {
     }
 
     return (
+        <div className="modal-main">
+
         <div className={props.classname ? `modal ${props.classname}` : `modal`}>
                 {props.title &&
                 
-            <div className="modal-header">
+                <div className="modal-header">
                 <h4>{props.title} </h4>
                 <span className="close" onClick={props.onClick}>X</span>             
             </div>
@@ -20,6 +22,7 @@ const Modal = (props) => {
                 {props.children}
             </div>
         </div>
+                </div>
     )
 }
 const Dropdown = (props) => {

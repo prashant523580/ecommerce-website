@@ -5,6 +5,17 @@ import "./style.css";
 const CartItem = (props) => {
     const [qty, setQty] = useState(props.cartItem.qty);
     const { _id, name, price, img } = props.cartItem;
+    const onQuantityIncrement = () => {
+        console.log(qty);
+        setQty(qty + 1);
+        props.onQuantityIncre(_id,qty - 1)
+    }
+    const onQuantityDecrement = () => {
+        if(qty <= 1) return;
+        setQty(qty - 1);
+        props.onQuantityDecre(_id,qty - 1)
+    }
+
     return (
         <div className="cart">
             <div className="cart-body">
@@ -22,9 +33,9 @@ const CartItem = (props) => {
             <div className="cart-footer">
                 <div className="quantity-control">
 
-                    <button>-</button> 
+                    <button onClick={onQuantityDecrement}>-</button> 
                     <input className="quantity" value={qty} readOnly />
-                    <button>+</button>&nbsp;
+                    <button onClick={onQuantityIncrement}>+</button>&nbsp;
                 <button className="remove-btn" onClick={() => props.onRemoveCartItem(_id)}>
                     remove</button>
                 </div>

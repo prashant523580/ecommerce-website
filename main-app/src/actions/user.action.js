@@ -13,35 +13,35 @@ export const UserSignup = (user) => {
         //     },
         //     body: JSON.stringify({...user})
         // });
-        const res = await axios.post("/signup",{
-            ...user
-        });
+        try{
 
-        console.log(res)
-        if(res.status === 201){
-            const {message,token,user} = res.data;
-            localStorage.setItem('token',token);
-            localStorage.setItem("user", JSON.stringify(user))
-            dispatch({
-                type: userConstants.USER_REGISTER_SUCCESS,
-                payload:{
-                    token,
-                   message,user
-                }
-            })
-            dispatch({type: authConstants.LOGIN_SUCCESS,
-                payload:{
-                    token,
-                    user
-                }
-            })
-        }else{
-            if(res.status === 400){
+            const res = await axios.post("/signup",{
+                ...user
+            });
+            if(res.status === 201){
+                const {message,token,user} = res.data;
+                localStorage.setItem('token',token);
+                localStorage.setItem("user", JSON.stringify(user))
                 dispatch({
-                    type:userConstants.USER_REGISTER_FAILURE,
-                    payload:{error: res.data.error}
+                    type: userConstants.USER_REGISTER_SUCCESS,
+                    payload:{
+                        token,
+                        message,user
+                    }
+                })
+                dispatch({type: authConstants.LOGIN_SUCCESS,
+                    payload:{
+                        token,
+                        user
+                    }
                 })
             }
+        }catch(err){
+            console.log(err.response.data.error)
+            dispatch({
+                type:userConstants.USER_REGISTER_FAILURE,
+                payload:{error: err.response.data.error}
+            })
+        }
         }
     }
-}

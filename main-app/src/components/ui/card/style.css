@@ -33,6 +33,7 @@
     width: 35vmin;
     height: 40vmin;
     background: var(--light);
+    margin: 0 .3rem;
 }
 .card-body .product-img{
     width: 100%;

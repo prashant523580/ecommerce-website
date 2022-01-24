@@ -24,14 +24,16 @@ function App() {
     if (!auth.authenticate) {
 
         dispatch(isUserLoggedIn());
+      
     }
-    if(auth.authenticate){
+    
+    
+  }, [auth.authenticate]); // componentDidUpdate
+  
+  useEffect(() => {
+  dispatch(getInitialData())
 
-      dispatch(getInitialData())
-    }
-    // dispatch(getAllProduct());
-    // dispatch(getAllCategory())
-}, [auth.authenticate]); // componentDidUpdate
+},[])
   return (
       <>     
           <Navbar/>

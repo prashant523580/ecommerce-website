@@ -3,7 +3,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./style.css";
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { login, signout } from "../../actions"
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { getCartItems, login, signout, UserSignup } from "../../actions"
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
 import { Dropdown, Modal } from './nav-header/index.nav';
@@ -13,7 +14,7 @@ import loginImg from "../../img/Login-illustration.svg";
 const Header = () => {
     const [loginModal, setLoginModal] = useState(false);
     const [signupModal, setSignupModal] = useState(false);
-    const [errorModal,setErrorModal] = useState(false);
+    const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [user, setUser] = useState({
         name: "",
@@ -24,38 +25,56 @@ const Header = () => {
         email_user: ""
 
     });
+    const [errorMessage, setErrorMessage] = useState({
+        fullnameError: "",
+        phoneError: "",
+        emailError: "",
+        passwordError: "",
+        usernameError: ""
+    })
     const auth = useSelector(state => state.auth);
-    const current_user = useSelector(state=> state.user);
-
+    const current_user = useSelector(state => state.user);
+    const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
-  
-   useEffect(() => {
-           setError(auth.error);
-            setErrorModal(true);
-    
+
+    useEffect(() => {
+        setError(auth.error || current_user.error);
+        setErrorModal(true);
+
         setTimeout(() => {
 
             dispatch({
-                type:authConstants.LOGIN_FAILURE,
-                payload:{
+                type: authConstants.LOGIN_FAILURE,
+                payload: {
                     error: ""
                 }
             })
-        },6000);
-},[auth.error]);
-const showErrorModal = () => {
-        
-    return(
-        <>
-        <Modal 
-        onClick={() => setErrorModal(false)}
-        visible={errorModal}
-        title={"error"} classname={"error"} children={
-            <p > {error}</p>
-        }/>
-        </>
-    )
-}
+            setErrorMessage({
+                fullnameError: "",
+                phoneError: "",
+                emailError: "",
+                passwordError: "",
+                usernameError: ""
+            })
+        }, 3000);
+    }, [auth.error, current_user.error]);
+    useEffect(() => {
+        // dispatch(getCartItems());
+        console.log(cart)
+    }, [auth.authenticate]);
+    const showErrorModal = () => {
+
+        return (
+            <>
+                <Modal
+                    onClick={() => setErrorModal(false)}
+                    visible={errorModal}
+                    title={"error"} classname={"error"} children={
+                        <p > {error}</p>
+                    } />
+            </>
+        )
+    }
     const InputEvent = (e) => {
         const { name, value } = e.target;
         // console.log(name,value)
@@ -63,17 +82,41 @@ const showErrorModal = () => {
             return { ...preval, [name]: value }
         })
     }
+    const errorMsg = {
+        fullnameError: "fill user name",
+        passwordError: "fill password",
+        emailError: "fill password",
+        phoneError: "fill phone number",
+
+    }
+
     const submitSignup = (e) => {
         e.preventDefault();
+        if (user.username === "") {
+            setErrorMessage((preval) => {
+                return { ...preval, usernameError: errorMsg.fullnameError }
+            });
+            return
+        } else if (user.email === "") {
+
+        }
+        console.log(errorMessage);
+        dispatch(UserSignup(user));
         setLoginModal(false);
     }
     const submitLogin = (e) => {
         e.preventDefault();
 
         dispatch(login(user));
-        setLoginModal(false);
 
+        setLoginModal(false);
     }
+    useEffect(() => {
+        if (auth.authenticate) {
+
+            setLoginModal(false);
+        }
+    }, [auth.authenticate])
     const logout = () => {
         dispatch(signout());
     }
@@ -82,35 +125,45 @@ const showErrorModal = () => {
             <>
                 <Modal visible={loginModal} onClick={() => setLoginModal(false)}>
                     {/* <div className="info"> */}
-                        <div className="content">
-                                {signupModal ? <h3>sign up</h3> : <h3>sign in</h3>}
-                                <div className="content-body">
-                                    <img src={loginImg} />
-                                </div>
-                                <div className="link-form">
-                                    {signupModal ?<>
-                                         <p >already signup ? <span onClick={() => {
-                                             setSignupModal(false)
-                                             
-                                            }}> signin here</span>  </p>
-                                            <p> <span style={{color:"white"}}><FacebookOutlinedIcon/></span> </p>
-                                            </>
-                                             : <p   
-                                    > not a member ? <span onClick={() => {
-                                        setSignupModal(true)
-                                    }}> signup here</span></p>}
-                                </div>
+                    <div className="content">
+                        <div className='toggle-form'>
+                            <div className='toggle-buttons'>
+
+                            <h4 style={signupModal ? { backgroundColor: "black" } : { backgroundColor: "transparent" }} onClick={() => setSignupModal(true)}>sign up</h4>
+                            <h4 style={!signupModal ? { backgroundColor: "black" } : { backgroundColor: "transparent" }} onClick={() => setSignupModal(false)}>sign in</h4>
+                            </div>
                         </div>
+                        <div className="content-body">
+                            <img src={loginImg} />
+                        </div>
+                        <div className="link-form">
+                            {signupModal ? <>
+                                <p >already signup ? <span onClick={() => {
+                                    setSignupModal(false)
+
+                                }}> signin here.</span>  </p>
+
+                            </>
+                                : <p
+                                > not a member ? <span onClick={() => {
+                                    setSignupModal(true)
+                                }}> signup here.</span></p>}
+                        </div>
+                    </div>
                     {/* </div> */}
                     <form action="" onSubmit={signupModal ? submitSignup : submitLogin}>
                         {
                             signupModal && <>
+
                                 <div className="form-group">
                                     <label htmlFor="">full name</label>
                                     <input autoComplete='off' name='name' value={user.name} onChange={InputEvent} type="text" placeholder='fullname' className='input-control' />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="">username</label>
+                                    <label htmlFor="">username {errorMessage.usernameError &&
+                                        <div className="error"> {errorMessage.usernameError} </div>
+                                    }
+                                    </label>
                                     <input autoComplete='off' name='username' value={user.username} onChange={InputEvent} type="text" placeholder='username' className='input-control' />
                                 </div>
 
@@ -134,14 +187,33 @@ const showErrorModal = () => {
                             <label htmlFor="">password</label>
                             <input autoComplete='false' name='password' value={user.password} onChange={InputEvent} type="password" placeholder='password' className='input-control' />
                         </div>
+
+                        <div style={{ textAlign: "center", padding: "5px" }}>or</div>
+                        <hr />
                         <div className="form-group">
-                            <div className='social-media'>  
-                                <button style={{display: "flex", justifyContent:"center",alignItems:"center"}}>
-                                     sign in with &nbsp;<FacebookOutlinedIcon/>
+                            <div className='social-media'>
+                                <div>
+
+                                    <button >
+                                        <FacebookOutlinedIcon />
                                     </button>
-                                      </div>
+                                    <button >
+                                        <FacebookOutlinedIcon />
+                                    </button>
+                                </div>
+                                <div>
+
+                                    <button>
+                                        <FacebookOutlinedIcon />
+                                    </button>
+                                    <button >
+                                        <FacebookOutlinedIcon />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="buttons">
+                        <hr />
+                        <div className="form-group buttons">
                             <button className="form-btn" onClick={() => setLoginModal(false)}>cancle</button>
                             <button className="form-btn">{signupModal ? "sign up" : "login"}</button>
                         </div>
@@ -154,9 +226,12 @@ const showErrorModal = () => {
         return (
             <Dropdown
                 menu={
-                    <a>
-                        More
-                    </a>
+                    <>
+                        <a>
+                            More
+                        </a>
+                        <ArrowDropDownIcon />
+                    </>
                 }
                 menus={[
                     { label: 'Profile', href: "", icon: null },
@@ -193,8 +268,10 @@ const showErrorModal = () => {
     const renderLoginMenu = () => {
         return (
             <Dropdown
-                menu={
-                    <a>user name </a>
+                menu={<>
+                    <a> {auth.user.name}</a>
+                    <ArrowDropDownIcon />
+                </>
                 }
                 menus={[
                     { label: "My Profile", href: "", icon: null },
@@ -232,9 +309,9 @@ const showErrorModal = () => {
             </div>
 
             <div className="head cart-page">
-                <a href="/cart"> <ShoppingCartOutlinedIcon/></a>
+                <a href="/cart"> <div> {Object.keys(cart.cartItems).length}</div> <ShoppingCartOutlinedIcon /></a>
             </div>
-            {error ? showErrorModal(): null}
+            {error ? showErrorModal() : null}
             {modal()}
         </div>
     )

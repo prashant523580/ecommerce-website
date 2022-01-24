@@ -15,3 +15,33 @@ button{
   outline: 0;
   border: 0;
 }
+
+::-webkit-scrollbar{
+  width: 20px;
+  background-color: rgb(16, 4, 4);
+  border-radius: 30px;
+}
+::-webkit-scrollbar-corner{
+  width: 15px;
+  /* background-color: chartreuse; */
+}
+::-webkit-scrollbar-track{
+ width: 40px;
+ background-color: rgb(0, 0, 0);
+ border-radius: 30px;
+}
+::-webkit-scrollbar-thumb{
+  width: 20px;
+  background-color: rgb(138, 152, 176);
+  border-radius: 30px;
+}
+::-webkit-scrollbar-track-piece{
+  width: 30px;
+  background-color: rgb(3, 66, 80); 
+  border-radius: 30px;
+}
+::-webkit-scrollbar-button{
+  width: 20px;
+  background-color: rgb(24, 11, 1);
+  border-radius: 30px;
+}

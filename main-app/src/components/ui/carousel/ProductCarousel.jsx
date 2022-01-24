@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import "./productCarousel.css";
 import {useSwipeable} from "react-swipeable";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+// import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
+import { width } from "@mui/system";
 export const ProductCarouselItem = ({ children, width }) => {
     return (
         <div className="slide" style={{ width: width }}>
@@ -10,15 +12,38 @@ export const ProductCarouselItem = ({ children, width }) => {
         </div>
     )
 }
-const ProductCarousel = ({ children }) => {
+
+const ProductCarousel = ({children}) => {
+   
+    const responsive = {
+        superLargeDesktop: {
+          // the naming can be any, depends on you.
+          breakpoint: { max: 4000, min: 3000 },
+          items: 5
+        },
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1
+        }
+      };
     const [activeIndex, setActiveIndex] = useState(0);
     const [pause,setPause] = useState(0);
    
-    const updateActive = (currentActive) => {
+    const updateProductActive = (currentActive) => {
         if (currentActive < 0) {
+     
             currentActive = React.Children.count(children) - 1;
         } else if (currentActive >= React.Children.count(children)) {
             currentActive = 0;
+           
         }
         setActiveIndex(currentActive);
     }
@@ -26,7 +51,7 @@ const ProductCarousel = ({ children }) => {
         const interval = setInterval(() => {
             if(!pause){
 
-                updateActive(activeIndex + 1)
+                updateProductActive(activeIndex + 1)
             }
         },3000);
         return () => {
@@ -37,8 +62,8 @@ const ProductCarousel = ({ children }) => {
         }
     });
     const handlers = useSwipeable({
-        onSwipedRight : () => updateActive(activeIndex-1),
-        onSwipedLeft: ()=> updateActive(activeIndex +1)
+        onSwipedRight : () => updateProductActive(activeIndex +1),
+        onSwipedLeft: ()=> updateProductActive(activeIndex -1)
     })
     return (
         <>
@@ -50,39 +75,28 @@ const ProductCarousel = ({ children }) => {
                 onMouseLeave={() => setPause(false)}
                 >
                    
-                    <div className="inner" style={{ transform: `translateX(-${(activeIndex  ) * 5}%)`,
-                    //  width: (React.Children.count(children) - 1) * 100 + "" 
+                    <div className="inner" style={{ transform: `translateX(-${(activeIndex  ) * 100 }px)`,
+                    //  width: (React.Children.count(children) - 1) * 100 + "px" 
                      }}>
                         {
                             React.Children.map(children, (child, index) => {
-                                return React.cloneElement(child, { width: "30%" });
+                                return React.cloneElement(child, { width: "600px" });
                             })
                         }
                     </div>
                 <div className="buttons">
                     <button onClick={() => {
-                        updateActive(activeIndex - 1)
+                        updateProductActive(activeIndex - 1)
                     }}>&#8249;</button>
-                    {/* {
-                        React.Children.map(children, (child, index) => {
-                            return (
-                                <button
-                                className={`${activeIndex=== index ? "active" : ""}`}
-                                onClick={() => {
-                                    updateActive(index)
-                                }}>
-                                    {index + 1}
-                                </button>
-                            )
-                        })
-                    } */}
+
                     <button
                         onClick={() => {
-                            updateActive(activeIndex + 1)
+                            updateProductActive(activeIndex + 1)
                         }}
                     >&#8250;</button>
                 </div>
                 </div>
+               
             </div>
         </>
     )

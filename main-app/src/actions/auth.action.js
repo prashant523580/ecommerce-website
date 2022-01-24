@@ -1,7 +1,7 @@
 // import axios from "axios"
 import axios from "../helpers/axios"
 import { api } from "../urlConfig"
-import { authConstants } from "./constant"
+import { authConstants, CartConstants } from "./constant"
 
 export const login = (user) => {
 
@@ -112,6 +112,9 @@ export const signout = ()=> {
             localStorage.clear();
             dispatch({
                 type: authConstants.LOGOUT_SUCCESS
+            });
+            dispatch({
+                type:CartConstants.RESET_CART
             })
         }
     

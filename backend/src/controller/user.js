@@ -73,19 +73,21 @@ exports.signup = async (req, res) => {
             res.status(422).json({
                 error: "already exist"
             })
+        }else{
+
+            const user = await new User({
+                name,
+                username,
+                email,
+                phone,
+                password,
+                role:"user"
+            });
+            await user.save();
+            res.status(201).json({
+                message: "user registered successfully"
+            })
         }
-        const user = await new User({
-            name,
-            username,
-            email,
-            phone,
-            password,
-            role:"user"
-        });
-        await user.save();
-        res.status(201).json({
-            message: "user registered successfully"
-        })
     } catch (error) {
        res.status(422).json({error})
     }

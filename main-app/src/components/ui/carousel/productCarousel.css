@@ -1,5 +1,5 @@
 .product-carousel-container{
-    width: 100%;
+    /* width: 100%; */
 }
 .product-carousel-container .carousel{
     /* height:50% ; */
@@ -9,7 +9,7 @@
 }
 .product-carousel-container .carousel .inner{
     white-space: nowrap;
-    transition: transform .6s ease;
+    transition: transform .9s ease-in-out;
     display: flex;
     justify-content: flex-start;
     /* align-items: center ; */
@@ -22,7 +22,7 @@
     align-items: center; */
     /* background: var(--main-bg); */
     color:white;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .product-carousel-container .buttons{
 

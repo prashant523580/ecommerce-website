@@ -11,7 +11,8 @@ export default (state = initState,action) => {
     switch(action.type){
         case CartConstants.ADD_TO_CART_REQUEST:
             state={
-                ...state,updatingCart: true
+                ...state,
+                updatingCart: true
             }
             break;
         case CartConstants.ADD_TO_CART_SUCCESS:
@@ -27,6 +28,7 @@ export default (state = initState,action) => {
                     error: action.payload.error,
                     updatingCart:false
                 }
+                break;
         case CartConstants.RESET_CART:
             state ={
                 ...initState

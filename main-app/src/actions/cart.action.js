@@ -22,7 +22,7 @@ const getCartItems = () => {
                 }
             }catch(error){
 
-                console.log(error);
+                console.log(error.response);
             }
         }
 }
@@ -60,5 +60,25 @@ export const addToCart = (product,newQnty =1) => {
 
     }
 }
+export const deleteCartItem = (payload) => {
+  return  async dispatch => {  
+    dispatch({
+        type:CartConstants.REMOVE_CART_ITEM_REQUEST
+    })
+    const res = await axios.post("/user/cart/remove",{payload});
+    if(res.status === 202){
+        dispatch({
+            type: CartConstants.REMOVE_CART_ITEM_SUCCESS
 
+        });
+        dispatch(getCartItems())
+    }    else {
+        const { error } = res.data;
+        dispatch({
+          type: CartConstants.REMOVE_CART_ITEM_FAILURE,
+          payload: { error },
+        });
+      }
+  }  
+}
 export {getCartItems}

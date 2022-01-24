@@ -11,12 +11,12 @@ exports.addItemToCart = async (req, res) => {
             let isItemAdded = existCart.cartItems.find(cart => {
                 // console.log(cart.product)
                 return cart.product == product
-            }
-            );
+            });
             let condition, action;
             if (isItemAdded) {
                 condition = {
-                    "user": req.user._id, "cartItems.product": product
+                    "user": req.user._id,
+                    "cartItems.product": product
                 };
                 action = {
                     "$set": {
@@ -26,17 +26,21 @@ exports.addItemToCart = async (req, res) => {
                         }
                     }
                 };
-                
+
             } else {
-                condition = { user: req.user._id};
+                condition = {
+                    user: req.user._id
+                };
                 action = {
                     "$push": {
                         'cartItems': req.body.cartItems
                     }
                 }
             }
-           let updated= await Cart.findOneAndUpdate( condition,action)
-            res.status(201).json({ cartItems: updated});
+            let updated = await Cart.findOneAndUpdate(condition, action)
+            res.status(201).json({
+                cartItems: updated
+            });
         } else {
             const cart = await new Cart({
                 user: req.user._id,
@@ -46,56 +50,71 @@ exports.addItemToCart = async (req, res) => {
             console.log(added_cart, 'sad')
             if (added_cart) {
                 res.status(201).json({
-                   cartItems : added_cart
+                    cartItems: added_cart
                 });
             }
         }
     } catch (error) {
-    res.status(422).json({error})
+        res.status(422).json({
+            error
+        })
     }
 }
 
 exports.getCartItems = (req, res) => {
-    Cart.findOne({ user: req.user._id })
-      .populate("cartItems.product", "_id name price productPicture")
-      .exec((error, cart) => {
-          console.log(cart)
-        if (error) return res.status(400).json({ error });
-        if (cart) {
-          let cartItems = {};
-          cart.cartItems.forEach((item, index) => {
-            cartItems[item.product._id.toString()] = {
-              _id: item.product._id.toString(),
-              name: item.product.name,
-              img: item.product.productPicture[0].img,
-              price: item.product.price,
-              qty: item.quantity,
-            };
-          });
-          console.log(cartItems)
-          res.status(200).json({ cartItems });
-        }
-      });
-   
-  };
+    Cart.findOne({
+            user: req.user._id
+        })
+        .populate("cartItems.product", "_id name price productPicture")
+        .exec((error, cart) => {
+            console.log(cart)
+            if (error) return res.status(400).json({
+                error
+            });
+            if (cart) {
+                let cartItems = {};
+                cart.cartItems.forEach((item, index) => {
+                    cartItems[item.product._id.toString()] = {
+                        _id: item.product._id.toString(),
+                        name: item.product.name,
+                        img: item.product.productPicture[0].img,
+                        price: item.product.price,
+                        qty: item.quantity,
+                    };
+                });
+                console.log(cartItems)
+                res.status(200).json({
+                    cartItems
+                });
+            }
+        });
 
-exports.deleteCartItems = (req,res) => {
-    const {productId} = req.body.payload;
+};
+
+exports.deleteCartItems = (req, res) => {
+    const {
+        productId
+    } = req.body.payload;
     console.log(productId);
-    if(productId){
-        Cart.update({user: req.user._id},{
+    if (productId) {
+        Cart.update({
+            user: req.user._id
+        }, {
 
-            $pull : {
-                cartItems :{
-                    product:productId
+            $pull: {
+                cartItems: {
+                    product: productId
                 }
             }
-        }
-    ).exec((err,result) => {
-        if(err) return res.status(422).json({error: err});
-        if(result){
-            res.status(202).json({result});
-        }
-    })
+        }).exec((err, result) => {
+            if (err) return res.status(422).json({
+                error: err
+            });
+            if (result) {
+                res.status(202).json({
+                    result
+                });
+            }
+        })
     }
 }

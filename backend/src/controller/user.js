@@ -1,10 +1,12 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const jwt = require("jsonwebtoken");
-const {validationResult} = require("express-validator"); 
+const {
+    validationResult
+} = require("express-validator");
 exports.signin = async (req, res) => {
     try {
-        
+
         const {
             email_user,
             password
@@ -36,7 +38,7 @@ exports.signin = async (req, res) => {
                 res.status(200).json({
                     message: "user login success",
                     token,
-                    user : verifyUser
+                    user: verifyUser
                 })
             }
         } else {
@@ -45,7 +47,9 @@ exports.signin = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(422).json({error})
+        res.status(422).json({
+            error
+        })
     }
 }
 
@@ -63,17 +67,17 @@ exports.signup = async (req, res) => {
     //     })
     // }
     try {
-        
+
         let existUser = await User.findOne({
             email: email
         }) || await User.findOne({
-            username:username
+            username: username
         });
         if (existUser) {
             res.status(422).json({
                 error: "already exist"
             })
-        }else{
+        } else {
 
             const user = await new User({
                 name,
@@ -81,7 +85,7 @@ exports.signup = async (req, res) => {
                 email,
                 phone,
                 password,
-                role:"user"
+                role: "user"
             });
             await user.save();
             res.status(201).json({
@@ -89,12 +93,14 @@ exports.signup = async (req, res) => {
             })
         }
     } catch (error) {
-       res.status(422).json({error})
+        res.status(422).json({
+            error
+        })
     }
 }
-exports.requireSignin =(req,res,next) =>{
+exports.requireSignin = (req, res, next) => {
     const token = req.headers.authorization;
-    const user = jwt.verify(token,process.env.SECRET_KEY);
+    const user = jwt.verify(token, process.env.SECRET_KEY);
 
     req.user = user;
     next();

@@ -4,7 +4,7 @@ const { authorize, userMiddleware} = require("../common/commonAuth");
 const { addItemToCart, getCartItems,deleteCartItems } = require("../controller/cart");
 const router = express.Router();
 
-router.post("/cart/addtocart",authorize,userMiddleware,addItemToCart);
-router.get("/getcartitems",authorize,userMiddleware,getCartItems);
-router.post("/cart/remove", authorize,userMiddleware,deleteCartItems);
+router.post("/user/cart/addtocart",authorize,userMiddleware,addItemToCart);
+router.get("/user/getcartitems",authorize,userMiddleware,getCartItems);
+router.post("/user/cart/remove", authorize,userMiddleware,deleteCartItems);
 module.exports = router;

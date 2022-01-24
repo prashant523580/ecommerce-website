@@ -23,9 +23,9 @@ const productSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    quantity:{
+    quantity: {
         type: Number,
-        required : true
+        required: true
     },
     offer: {
         type: Number
@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema({
         }
     }],
     reviews: [{
-        userId:{
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         },
@@ -50,8 +50,8 @@ const productSchema = new mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref : "User",
-        required : true
+        ref: "User",
+        required: true
     },
     updatedAt: Date,
 

@@ -35,24 +35,22 @@ const UserSchema = new mongoose.Schema({
     profilePicture: {
         type: String
     },
-    tokens :[{
-        token : {
-        type: String,
-        required : true
+    tokens: [{
+        token: {
+            type: String,
+            required: true
         }
     }]
-},
-    {
-        timestamps :true
-    }
-)
+}, {
+    timestamps: true
+})
 
 // UserSchema.virtual('password')
 // .set(function(password){
 //     this.password =  bcrypt.hashSync(password,10);
 // })
-UserSchema.pre("save", async function(next) {
-    if(this.isModified("password")){
+UserSchema.pre("save", async function (next) {
+    if (this.isModified("password")) {
         this.password = await bcrypt.hash(this.password, 10);
     }
     next();
@@ -62,17 +60,18 @@ UserSchema.pre("save", async function(next) {
 // .get(function(){
 //     return `${this.name}`
 // })
-UserSchema.methods.generateToken = async function() {
-    try{
+UserSchema.methods.generateToken = async function () {
+    try {
         let token = jwt.sign({
-            _id : this._id, role: this.role
+            _id: this._id,
+            role: this.role
         }, process.env.SECRET_KEY);
         this.tokens = this.tokens.concat({
-            token : token
+            token: token
         })
         await this.save();
         return token;
-    }catch(err){
+    } catch (err) {
         res.status(422).json(err);
     }
 }

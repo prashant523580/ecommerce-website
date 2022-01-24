@@ -7,7 +7,8 @@
     width: 50%;
     padding: 10px;
     margin: .2rem ;
-
+    display: flex;
+    flex-direction: column;
 }
 .cart-header{
     display: flex;
@@ -18,8 +19,25 @@
     justify-content: space-between;
     box-shadow: 0 0 5px 2px rgba(0,0,0,0.7);
 }
+.cart-footer{
+    margin-top:  auto;
+}
+.cart-footer button::before{
+    content: "";
+    display: table;
+    clear: both;
+}
+.cart-footer button.btn{
+    float: right;
+}
+.cart-item.left{
+
+    border-radius: .3rem;
+    /* width: 40%; */
+    box-shadow: 0 0 10px 2px rgba(0,0,0,0.7);
+}
 .cart-item.right{
-    position: sticky;
+    position: -webkit-sticky;
     top: 10%;
     right: 0;
     border-radius: .3rem;
@@ -77,4 +95,5 @@
 details summary{
     text-transform: capitalize;
     text-decoration: underline;
+    cursor: pointer;
 }

@@ -53,16 +53,10 @@ const CartPage = (props) => {
           </details>
         );
       }
-    return (
-        <>
-            <div className="cart-page-container">
-                <div className="cart-item left">
-                    <div className="cart-header">
-                        <h3>cart items</h3>
-                    </div>
-                    <div className="cart-item-body">
-
-                    {
+      if(props.onlyCartItems){
+          return(
+              <>
+                {
                         cartItems && Object.keys(cartItems).map((key, ind) =>
                         <CartItem
                         key={ind}
@@ -73,8 +67,33 @@ const CartPage = (props) => {
                         />
                         )
                     }
-                    </div>
+              </>
+          )
+      }
+    return (
+        <>
+            <div className="cart-page-container">
+                <div className="cart-item left">
+                    <div className="cart-header">
+                        <h3>cart items</h3>
+                        <select className="select-option" name="" id="">
+                       
 
+                            <option value="asc">low to high Price</option>
+                        
+                            <option value="desc">high to low Price</option>
+                       
+                        </select>
+                    </div>
+                    <div className="cart-item-body">
+
+                  
+                    </div>
+                    <div className="cart-footer">
+                        <button onClick={() => 
+                            props.history.push('/checkout')
+                        } className='btn btn-warning'>order now</button>
+                    </div>
                 </div>
                 <div className="cart-item right">
                     <div className="cart-quantity cart-header">

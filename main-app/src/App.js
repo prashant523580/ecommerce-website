@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import logo from './logo.svg';
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
-import { getAllCategory, getCartItems, getInitialData, isUserLoggedIn } from "./actions"
+import { getAllCategory, getCartItems, getInitialData, isUserLoggedIn, updateCart } from "./actions"
 import HomePage from "./containers/HomePage/index";
 import Header from "./components/headers/index";
 import Menu from "./components/Menu/index";
@@ -27,7 +27,7 @@ function App() {
   },[auth.authenticate])
   useEffect(() => {
     if(auth.authenticate){
-      dispatch(getCartItems());
+      dispatch(updateCart());
     }
   },[auth.authenticate])
   return (

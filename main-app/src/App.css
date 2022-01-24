@@ -14,34 +14,76 @@
 button{
   outline: 0;
   border: 0;
+  cursor: pointer;
+}
+.btn{
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.btn-warning{
+  color: white;
+  background: var(--warning);
+}
+.btn:hover{
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.6);
+}
+.btn:active{
+  box-shadow:inset 0 0 10px 2px rgba(0,0,0,0.6);
 }
 
-::-webkit-scrollbar{
-  width: 20px;
-  background-color: rgb(16, 4, 4);
-  border-radius: 30px;
+
+.select-option{
+  padding: 8px 10px ;
+  outline: 1px solid black;
+  border: 0;
+  /* background: rgb(211, 207, 207); */
+  background: var(--bg-green);
+  color: white;
+  text-transform: capitalize;
+  border-radius: .4rem;
+  cursor: pointer;
 }
-::-webkit-scrollbar-corner{
-  width: 15px;
-  /* background-color: chartreuse; */
+.select-option option{
+  padding: 16px 8px;
+  /* background: var(--bg-green); */
+  color: white;
+}
+::-webkit-scrollbar{
+  width: 10px;
+
+  background-color: rgb(3, 66, 80); 
+  /* background-color: rgb(16, 4, 4); */
+  /* padding: 10px; */
+  /* border-radius: 30px; */
 }
 ::-webkit-scrollbar-track{
- width: 40px;
- background-color: rgb(0, 0, 0);
- border-radius: 30px;
+ /* width: 10px; */
+  background-color: rgb(3, 66, 80); 
+ border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb{
-  width: 20px;
-  background-color: rgb(138, 152, 176);
+  width: 5px;
+  background-color: rgba(138, 152, 176, 0.807);
   border-radius: 30px;
 }
 ::-webkit-scrollbar-track-piece{
-  width: 30px;
-  background-color: rgb(3, 66, 80); 
-  border-radius: 30px;
+
 }
 ::-webkit-scrollbar-button{
-  width: 20px;
-  background-color: rgb(24, 11, 1);
-  border-radius: 30px;
-}
+  width: 10px;
+  /* background-color: rgb(10, 56, 58); */
+  background: white;
+   border-top-left-radius: 30px;
+   border-top-right-radius:40px; 
+   position: relative;
+  }
+
+  ::-webkit-validation-bubble{
+    background: pink;
+  }
+
+  ::-webkit-slider-thumb{
+    background: green;
+    width: 20px;
+  }

@@ -11,6 +11,7 @@ import { Dropdown, Modal } from './nav-header/index.nav';
 import { getNativeSelectUtilityClasses } from '@mui/material';
 import { authConstants } from '../../actions/constant';
 import loginImg from "../../img/Login-illustration.svg";
+import googleIcon from "../../img/IOS_Google_icon.png";
 const Header = () => {
     const [loginModal, setLoginModal] = useState(false);
     const [signupModal, setSignupModal] = useState(false);
@@ -198,7 +199,7 @@ const Header = () => {
                                         <FacebookOutlinedIcon />
                                     </button>
                                     <button >
-                                        <FacebookOutlinedIcon />
+                                        <img width={'30px'} height={"30px"} src={googleIcon}/>
                                     </button>
                                 </div>
                                 <div>

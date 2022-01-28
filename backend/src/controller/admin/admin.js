@@ -27,6 +27,7 @@ exports.signin = async (req, res) => {
         }else{
             const isMatch = await bcrypt.compare(password, verifyUser.password);
             const token = await verifyUser.generateToken();
+            console.log(token)
             res.cookie("jwt", token, {
                 expires: new Date(Date.now()),
                 httpOnly: true,
@@ -34,9 +35,9 @@ exports.signin = async (req, res) => {
                 secure: true,
                 // signed : true
             });
-            if (!isMatch || verifyUser.role === "user") {
+            if (!isMatch || verifyUser.role != "admin") {
                 res.status(422).json({
-                    error: "SomeThing wentwrong"
+                    error: "admin not found"
                 });
             } else {
                 res.status(200).json({
@@ -49,8 +50,7 @@ exports.signin = async (req, res) => {
          
         
     } catch (error) {
-        console.log(error)
-        res.status(422).json({error :"user not found"});
+        res.status(422).json({error :"somethings went wrongs",err: error});
     }
 }
 
@@ -65,12 +65,12 @@ exports.signup = async (req, res) => {
             password,
             phone
         } = req.body;
-        if(name || email ||  password || username || phone === ""){
-            return res.status(422).json({error: "fill input fields"})
-        }
+        // if((name  || email  ||  password || username || phone) === ""){
+        //     return res.status(422).json({error: "fill input fields"})
+        // }
         let existUser = await User.findOne({
             email: email
-        });
+        }) || await User.findOne({username:username});
         if (existUser) {
             // console.log("true")
             res.status(422).json({
@@ -83,18 +83,31 @@ exports.signup = async (req, res) => {
                 username ,
                 email,
                 password,
+                phone,
                 role : "admin"
             })
-            const token = await user.generateToken();
-            await user.save();
-            res.status(201).json({
-                message: "admin registered successfully",
-                user ,
-                token
-            })
+            if(user){
+
+                const token = await user.generateToken();
+                console.log(token)
+                res.cookie("jwt", token, {
+                    expires: new Date(Date.now()),
+                    httpOnly: true,
+                    // sameSite:'lax',
+                    secure: true,
+                    // signed : true
+                });
+                await user.save();
+                res.status(201).json({
+                    message: "admin registered successfully",
+                    user ,
+                    token
+                })
+            }
         }
         } catch (error) {
-            res.status(422).json({error})
+            res.status(422).json({error});
+            console.log(error)
         }
 }
 

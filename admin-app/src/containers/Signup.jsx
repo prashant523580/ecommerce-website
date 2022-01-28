@@ -4,7 +4,7 @@ import img from "../img/18695.jpg";
 import "./form.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { UserSignup} from '../actions';
+import { userSignup} from '../actions';
 import Modal from './ui/modal/Modal';
 import { userConstants } from '../actions/constant';
 const SignUp = () => {
@@ -37,9 +37,9 @@ const SignUp = () => {
    useEffect(() => {
        if(current_user.error){
 
+           setError(current_user.error);
+               setErrorModal(true);
     }
-    setError(current_user.error);
-        setErrorModal(true);
         setTimeout(() => {
 
             dispatch({
@@ -58,7 +58,6 @@ const SignUp = () => {
     }
     const inputEvent = (e) => {
         const {name, value} = e.target;
-        console.log(name);
         setUser((preVal=> {
             return {...preVal , [name] : value}
         }))
@@ -73,10 +72,10 @@ const SignUp = () => {
         }
     }
 
-const RegisterUser = async(e) => {
+const registerUser = (e) => {
     e.preventDefault();
-     dispatch(UserSignup(user));
-    // console.log(user)
+     dispatch(userSignup(user));
+    console.log(user)
   
 }
 if(auth.authenticate){
@@ -95,7 +94,7 @@ if(auth.authenticate){
                     </div>
                     <h1>sign up</h1>
                 </div>
-                <form className="form" onSubmit={RegisterUser}>
+                <form className="form" onSubmit={registerUser}>
                     <div className="form-group">
 
                         {/* <label htmlFor="firstName">full name</label> */}

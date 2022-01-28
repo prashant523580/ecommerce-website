@@ -72,7 +72,7 @@ UserSchema.methods.generateToken = async function () {
         await this.save();
         return token;
     } catch (err) {
-        res.status(422).json(err);
+       console.log(err)
     }
 }
 // UserSchema.methods = {

@@ -33,7 +33,7 @@ color: black;
 .category-list{
   padding: 20px 10px;
 }
-.page-container .main-container .btn:hover{
+/* .page-container .main-container .btn:hover{
   background-color: rgb(0, 0, 0);
   box-shadow: 0px 5px 10px 1px rgb(6, 10, 9);
   }
@@ -41,5 +41,5 @@ color: black;
     transform: translateY(2px);
     box-shadow: 0 0 2px 1px rgb(4, 17, 12);
     
-  }
+  } */
   

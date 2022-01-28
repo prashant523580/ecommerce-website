@@ -1,25 +1,20 @@
-import axios from "../helpers/axios"
-// import { api } from "../urlConfig";
+import axios from "../helpers/axios";
 import { authConstants, userConstants } from "./constant"
-export const UserSignup = (user) => {
-    // console.log(user)
+export const userSignup = (user) => {
+    console.log(user)
     return async (dispatch)=> {
-        dispatch({type:userConstants.USER_REGISTER_REQUEST});
-
-        // const res = await fetch(api+"/admin/signup",{
-        //     method:"post",
-        //     headers:{
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({...user})
-        // });
-        try{
-
+        
+    
+                try{
+                    
+                    dispatch({type:userConstants.USER_REGISTER_REQUEST});
             const res = await axios.post("/admin/signup",{
                 ...user
             });
+            console.log(res)
             if(res.status === 201){
                 const {message,token,user} = res.data;
+                console.log(token)
                 localStorage.setItem('token',token);
                 localStorage.setItem("user", JSON.stringify(user))
                 dispatch({
@@ -38,11 +33,14 @@ export const UserSignup = (user) => {
             }
         }catch(err){
             const {error} = err.response.data
+            if(error){
+
                 dispatch({
                     type:userConstants.USER_REGISTER_FAILURE,
                     payload:{error}
                 })
-            
+                
+            }
         }
         }
     }

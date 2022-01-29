@@ -27,7 +27,6 @@ exports.signin = async (req, res) => {
         }else{
             const isMatch = await bcrypt.compare(password, verifyUser.password);
             const token = await verifyUser.generateToken();
-            console.log(token)
             res.cookie("jwt", token, {
                 expires: new Date(Date.now()),
                 httpOnly: true,
@@ -37,7 +36,7 @@ exports.signin = async (req, res) => {
             });
             if (!isMatch || verifyUser.role != "admin") {
                 res.status(422).json({
-                    error: "admin not found"
+                    error: "admin not found or password not match"
                 });
             } else {
                 res.status(200).json({

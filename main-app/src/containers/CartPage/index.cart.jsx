@@ -21,18 +21,15 @@ const CartPage = (props) => {
     }, [auth.authenticate]);
     const onQuantityDecrement = (_id, qty) => {
         const { name, price, img } = cartItems[_id];
-        console.log(name, price, img)
+
         dispatch(addToCart({ _id, name, price, img }, -1));
     }
     const onQuantityIncrement = (_id, qty) => {
-        console.log({ _id, qty });
         const { name, price, img } = cartItems[_id];
-        console.log(name, price, img)
         dispatch(addToCart({ _id, name, price, img }, 1));
 
     }
     const onRemoveCartItem = (id) => {
-        console.log(id)
         dispatch(deleteCartItem({ productId: id }));
     }
 
@@ -41,7 +38,7 @@ const CartPage = (props) => {
           [" ", "return"].includes(key) && setOpen(o => !o);
         }
         const [open, setOpen] = React.useState(defaultOpen);
-        console.log(open);
+        
         return (
           <details
             open={defaultOpen}
@@ -86,7 +83,17 @@ const CartPage = (props) => {
                         </select>
                     </div>
                     <div className="cart-item-body">
-
+                    {
+                        cartItems && Object.keys(cartItems).map((key, ind) =>
+                        <CartItem
+                        key={ind}
+                        onQuantityIncre={onQuantityIncrement}
+                        onQuantityDecre={onQuantityDecrement}
+                        onRemoveCartItem={onRemoveCartItem}
+                        cartItem={cartItems[key]}
+                        />
+                        )
+                    }
                   
                     </div>
                     <div className="cart-footer">
@@ -124,7 +131,7 @@ const CartPage = (props) => {
 
                                 //     <h4>{cart.cartItems[key].qty}</h4>
                                 // </details>
-                                  <Details title={cart.cartItems[key].name} defaultOpen={false}>
+                                  <Details key={ind} title={cart.cartItems[key].name} defaultOpen={false}>
                                   <h4>Price: {cart.cartItems[key].price}</h4>
                                     <h4>quantity :{cart.cartItems[key].qty}</h4>
                                 </Details>

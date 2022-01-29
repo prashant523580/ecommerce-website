@@ -27,14 +27,17 @@ const getCartItems = () => {
         }
 }
 export const addToCart = (product,newQnty =1) => {
+    console.log(product)
     return async (dispatch) => {
+      
         const {
             cart : {
                 cartItems
             },
             auth
         } = store.getState();
-       const qty = cartItems[product._id] ? parseInt(cartItems[product._id].qty + newQnty) : 1;
+       const qty = cartItems[product._id] 
+       ? parseInt(cartItems[product._id].qty + newQnty) : 1;
         cartItems[product._id] = {
             ...product,qty,
         }
@@ -44,12 +47,17 @@ export const addToCart = (product,newQnty =1) => {
             })
             const payload = {
                 cartItems :[
+
                     {
                         product: product._id,
                         quantity: qty,
+                        
+                        
                     }
                 ]
+                
             }
+            
             const res = await axios.post(`/user/cart/addtocart`, payload);
             if(res.status === 201){
                 dispatch(getCartItems());

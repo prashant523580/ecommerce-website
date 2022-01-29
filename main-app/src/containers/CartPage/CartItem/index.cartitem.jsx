@@ -6,9 +6,9 @@ const CartItem = (props) => {
     const [qty, setQty] = useState(props.cartItem.qty);
     const { _id, name, price, img } = props.cartItem;
     const onQuantityIncrement = () => {
-        console.log(qty);
+      
         setQty(qty + 1);
-        props.onQuantityIncre(_id,qty - 1)
+        props.onQuantityIncre(_id,qty + 1)
     }
     const onQuantityDecrement = () => {
         if(qty <= 1) return;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, getProductDetailsById } from "../../actions";
 import { generateImgUrl } from "../../urlConfig";
@@ -8,22 +8,33 @@ const ProductDetailPage = (props) => {
     const dispatch = useDispatch();
     const product = useSelector(state => state.product);
     const {productDetails}= product;
+    const [previewImg,setPreviewImg] = useState();
     useEffect(() => {
         const { productId } = props.match.params;
+
         const payload = {
             params: {
 
                 productId
             }
         }
-        console.log(payload)
         dispatch(getProductDetailsById(payload));
     }, []);
-    console.log(product.productDetails)
+    useEffect(() => {
+        if(productDetails.productPicture){
+            setPreviewImg(productDetails.productPicture[0].img);
+            
+        }
+
+    },[productDetails])
     const addTOCart = () => {
         let {_id,name,price}= productDetails;
         let img = productDetails.productPicture[0].img;
         dispatch(addToCart({_id,name,price,img}));
+    }
+    const previewImgClick = (img) => {
+        console.log(img)
+        setPreviewImg(img)
     }
     if (Object.keys(product.productDetails).length === 0) {
         return null;
@@ -37,15 +48,16 @@ const ProductDetailPage = (props) => {
                         <div className="vertical-img-stack">
                             {
                                 product.productDetails.productPicture.map((thumb, ind) =>
-                                    <div className="thumbnail" key={ind}>
-                                        <img src={generateImgUrl(thumb.img)} alt={thumb.img} />
+                                    <div className="thumbnail" key={ind} onMouseEnter={ () =>previewImgClick(thumb.img)}>
+                                        <img src={generateImgUrl(thumb.img)}  alt={thumb.img} />
                                     </div>
                                 )
                             }
                         </div>
                         <div className="picture-preview">
                             <div className="preview">
-                                <img src={generateImgUrl(product.productDetails.productPicture[0].img)} />
+                                {/* <img src={generateImgUrl(product.productDetails.productPicture[0].img)} /> */}
+                                <img src={generateImgUrl(previewImg)} />
                             </div>
                         </div>
                     </div>
@@ -67,7 +79,7 @@ const ProductDetailPage = (props) => {
                                 <a href="#">Samsung</a> &gt;
                             </li>
                             <li>
-                                <a href="#">{product.productDetails.name}</a>
+                                <a href="#">{product.productDetails.name.split(" ",4)}</a>
                             </li>
                         </ul>
                     </div>

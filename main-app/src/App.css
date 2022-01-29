@@ -15,6 +15,7 @@ button{
   outline: 0;
   border: 0;
   cursor: pointer;
+  border-radius: .2rem;
 }
 .btn{
   padding: 6px 8px;
@@ -59,8 +60,8 @@ button{
 }
 ::-webkit-scrollbar-track{
  /* width: 10px; */
-  background-color: rgb(3, 66, 80); 
- border-radius: 10px;
+  /* ba ckground-color: rgb(3, 66, 80);  */
+ /* border-radius: 10px; */
 }
 ::-webkit-scrollbar-thumb{
   width: 5px;
@@ -70,9 +71,9 @@ button{
 ::-webkit-scrollbar-track-piece{
 
 }
-::-webkit-scrollbar-button{
+/* ::-webkit-scrollbar-button{
   width: 10px;
-  /* background-color: rgb(10, 56, 58); */
+  background-color: rgb(10, 56, 58);
   background: white;
    border-top-left-radius: 30px;
    border-top-right-radius:40px; 
@@ -81,9 +82,9 @@ button{
 
   ::-webkit-validation-bubble{
     background: pink;
-  }
+  } */
 
-  ::-webkit-slider-thumb{
+  /* ::-webkit-slider-thumb{
     background: green;
     width: 20px;
-  }
+  } */

@@ -60,8 +60,6 @@ const Header = () => {
         }, 3000);
     }, [auth.error, current_user.error]);
     useEffect(() => {
-        // dispatch(getCartItems());
-        console.log(cart)
     }, [auth.authenticate]);
     const showErrorModal = () => {
 

@@ -9,7 +9,7 @@ const addressSchema = new mongoose.Schema({
     min: 3,
     max: 50,
   },
-  mobileNumber: {
+ phone : {
     type: String,
     required: true,
     trim: true,
@@ -33,7 +33,7 @@ const addressSchema = new mongoose.Schema({
     min: 10,
     max: 100,
   },
-  cityDistrictTown: {
+  city: {
     type: String,
     required: true,
     trim: true,
@@ -42,14 +42,6 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
     required: true,
-  },
-  landmark: {
-    type: String,
-    min: 10,
-    max: 100,
-  },
-  alternatePhone: {
-    type: String,
   },
   addressType: {
     type: String,

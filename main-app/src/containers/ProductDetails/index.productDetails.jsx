@@ -94,8 +94,8 @@ const ProductDetailPage = (props) => {
                             </div>
                         </div>
                         <div className="extra-offer">
-                            {/* Extra
-                            4500 off{" "} */}
+                            Extra
+                            4500 off{" "}
                         </div>
                         <div className="price-container">
                             <div className="price">Rs.{product.productDetails.price}</div>

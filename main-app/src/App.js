@@ -39,7 +39,7 @@ function App() {
       <Switch>
           <Route exact path={"/"} component={HomePage} />
           <Route exact path="/cart" component={CartPage}/>
-          <Route exact path="/checkout" component={CheckoutPage} />
+          <Route exact path="/checkout" component={CheckoutPage}/>
           <Route exact path={"/:productSlug/:productId/p"} component={ProductDetailPage}/>
           <Route exact  path={"/:slug"} component={ProductLists} />
         

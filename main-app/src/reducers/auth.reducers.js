@@ -14,7 +14,8 @@ const initState = {
     authenticating: false,
     loading:false,
     error:null,
-    message : ""
+    message : "",
+    address: []
 }
 export default (state = initState, action) => {
 
@@ -59,6 +60,26 @@ export default (state = initState, action) => {
                     ...state,
                     error : action.payload.error,
                     loading:false
+                }
+                break;
+            case authConstants.ADD_ADDRESS_REQUEST:
+                state ={
+                    ...state,
+                    loading : true
+                }
+                break;
+            case authConstants.ADD_ADDRESS_SUCCESS:
+                state ={
+                    ...state,
+                    address: action.payload.address,
+                    loading:false
+                }
+                break;
+            case authConstants.ADD_ADDRESS_FAILURE:
+                state = {
+                    ...state,
+                    loading:false,
+                    error: action.payload.error
                 }
                 break;
     }

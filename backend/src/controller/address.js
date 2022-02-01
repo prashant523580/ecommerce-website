@@ -4,7 +4,10 @@ exports.addAddress = async (req, res) => {
         const {
             payload
         } = req.body;
-        if (payload.address) {
+        // let address = await UserAddress({payload});
+        // res.status(201).json({address})
+        // return res.status(200).json({payload})
+        if (payload.address._id) {
             let address = await UserAddress.findOneAndUpdate({
                 user: req.user._id,
                 "address._id": payload.address._id
@@ -27,10 +30,14 @@ exports.addAddress = async (req, res) => {
                 new: true,
                 upsert: true
             })
-            res.status(201).json({
-                address
-            });
+            if(address){
+
+                res.status(201).json({
+                    address
+                });
+            }
         }
+ 
     } catch (err) {
         res.status(400).json({
             error: "Params address required",

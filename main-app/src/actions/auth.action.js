@@ -100,9 +100,6 @@ export const isUserLoggedIn =()=> {
         }
     }
 }
-
-
-
 export const signout = ()=> {
     return async dispatch => {
         dispatch({type: authConstants.LOGOUT_REQUEST})
@@ -118,4 +115,47 @@ export const signout = ()=> {
             })
         }
     
+}
+
+export const addAddress = (payload) => {
+    return async dispatch => {
+            // try{
+                console.log(payload)
+                dispatch({type:authConstants.ADD_ADDRESS_REQUEST})
+                let res = await axios.post("/user/address/create", {payload});
+                if(res.status === 201){
+                    const {address} = res.data.address;
+
+                    dispatch({
+                        type: authConstants.ADD_ADDRESS_SUCCESS,
+                        payload:{address}
+                    })
+                }else{
+                    const {error} = res.data;
+                    dispatch({
+                        type:authConstants.ADD_ADDRESS_FAILURE,
+                        payload:{error}
+                    })
+                }
+            // }catch{
+
+            // }
+    }
+}
+export const getAddress = () => {
+    return async dispatch => {
+        dispatch({
+            type:authConstants.ADD_ADDRESS_REQUEST
+        })
+        let res = await axios.get("user/address");
+  
+        if(res.status === 200){
+            const {address} = res.data.userAddress;
+            dispatch({
+                type:authConstants.ADD_ADDRESS_SUCCESS,
+                payload:{address}
+            })
+        }
+
+    }
 }

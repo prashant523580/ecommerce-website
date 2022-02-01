@@ -9,7 +9,6 @@ exports.addItemToCart = async (req, res) => {
             const product = req.body.cartItems.product;
          
             let isItemAdded = existCart.cartItems.find(cart => {
-                // console.log(cart.product)
                 return cart.product == product
             });
             let condition, action;
@@ -68,7 +67,6 @@ exports.getCartItems = (req, res) => {
         })
         .populate("cartItems.product", "_id name price productPicture")
         .exec((error, cart) => {
-            console.log(cart)
             if (error) return res.status(400).json({
                 error
             });
@@ -83,7 +81,6 @@ exports.getCartItems = (req, res) => {
                         qty: item.quantity,
                     };
                 });
-                console.log(cartItems)
                 res.status(200).json({
                     cartItems
                 });
@@ -96,7 +93,7 @@ exports.deleteCartItems = (req, res) => {
     const {
         productId
     } = req.body.payload;
-    console.log(productId);
+
     if (productId) {
         Cart.update({
             user: req.user._id

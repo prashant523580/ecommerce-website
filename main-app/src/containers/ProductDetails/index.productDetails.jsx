@@ -9,6 +9,7 @@ const ProductDetailPage = (props) => {
     const product = useSelector(state => state.product);
     const {productDetails}= product;
     const [previewImg,setPreviewImg] = useState();
+    const cart = useSelector(state => state.cart);
     useEffect(() => {
         const { productId } = props.match.params;
 
@@ -31,6 +32,11 @@ const ProductDetailPage = (props) => {
         let {_id,name,price}= productDetails;
         let img = productDetails.productPicture[0].img;
         dispatch(addToCart({_id,name,price,img}));
+
+        props.history.push("/cart")
+    }
+    if(cart.updateingCart){
+
     }
     const previewImgClick = (img) => {
         console.log(img)
@@ -62,8 +68,12 @@ const ProductDetailPage = (props) => {
                         </div>
                     </div>
                     <div className="buttons">
-                        <button onClick={addTOCart} className="btn">add to cart</button>
-                        <button className="btn">buy</button>
+                        <button onClick={addTOCart} className="btn"> {cart.updatingCart ? "loading": "add to cart"}</button>
+                        <button className="btn" onClick={() => {
+                            addTOCart()
+                            props.history.push("/checkout")
+                            
+                        }}>buy</button>
                     </div>
                 </div>
                 <div className="product-description">

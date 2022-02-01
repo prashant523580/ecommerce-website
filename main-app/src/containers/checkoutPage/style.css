@@ -18,21 +18,32 @@
 .checkout-container .checkout .checkout-header.active{
     background-color: var(--bg-green);
 }
+.checkout-header .step-number{
+    width: 20px;
+    height: 20px;
+    color: var(--bg-green);
+    text-align: center;
+    background-color: var(--light);
+}
+.checkout-header .title{
+    text-transform: capitalize;
+}
 .checkout-container .checkout .checkout-body{
     padding: 5px;
     box-shadow: inset 0 0 10px 0px rgba(0,0,0,0.7);
+    width: 100%;
 }
 
 form{
 
 }
-form .form-group .address-type,
-.checkout .checkout-body > form .form-group{
+.form .form-group .address-type,
+.checkout .checkout-body > .form .form-group{
     display: flex;
     margin: .3rem;
     flex-wrap: wrap;
 }
-form .form-group .form-control{
+.form .form-group .form-control{
     width: 40%;
     margin: .3rem .3rem;
     outline: 0;
@@ -40,21 +51,56 @@ form .form-group .form-control{
     border-bottom: 1px solid var(--bg-green);
 
 }
-form .form-group .address-type {
+.form .form-group .address-type {
     display: flex;
     align-items: center;
 }
-form .form-group label{
+.form .form-group label{
     color: black;
 }
-form .form-group .address-type .form-group{
+.form .form-group .address-type .form-group{
     display: flex;
     align-items: center;
     padding:0rem .4rem;
 }
-form .form-group .address-type .form-group label{
+.form .form-group .address-type .form-group label{
     color: var(--lightblue);
     margin: 0 .2rem;
     text-transform: capitalize;
     cursor: pointer;
+}
+.address-container{
+    /* display: flex; */
+}
+
+.address{
+   
+    padding: 3px;
+}
+
+.address-container .address-body .address label{
+    cursor: pointer;
+    width: 100%;
+    padding: .3rem;
+}
+.address label:hover ~ .address{
+    border-bottom: 2px solid black;
+    /* background-color:  var(--bg-green); */
+    color: var(--light);
+    /* box-shadow: 0 0 4px 0 black; */
+}
+.address .buttons{
+    /* float: right; */
+    display: flex;
+    margin: .3rem 0;
+}
+.address .buttons .button{
+    background-color: var(--lightblue);
+    color: var(--light);
+    padding: 6px 8px;
+    margin: 0rem .3rem;
+    text-transform: capitalize;
+}
+.address .buttons .button:last-child{
+    background-color: var(--success);
 }

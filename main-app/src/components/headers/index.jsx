@@ -99,7 +99,6 @@ const Header = () => {
         } else if (user.email === "") {
 
         }
-        console.log(errorMessage);
         dispatch(UserSignup(user));
         setLoginModal(false);
     }

@@ -1,7 +1,7 @@
-label {
+/* label {
   color: var(--bg-green);
   font-weight: bold;
-}
+} */
 
 :root {
   --modal-width: 80;

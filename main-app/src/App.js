@@ -12,6 +12,7 @@ import ProductLists from "./containers/ProductLists/index";
 import ProductDetailPage from "./containers/ProductDetails/index.productDetails";
 import CartPage from "./containers/CartPage/index.cart";
 import CheckoutPage from "./containers/checkoutPage/index.checkout";
+import OrderPage from "./containers/orderPage/index.order";
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth);
@@ -40,6 +41,7 @@ function App() {
           <Route exact path={"/"} component={HomePage} />
           <Route exact path="/cart" component={CartPage}/>
           <Route exact path="/checkout" component={CheckoutPage}/>
+          <Route exact path="/account/orders" component={OrderPage}/>
           <Route exact path={"/:productSlug/:productId/p"} component={ProductDetailPage}/>
           <Route exact  path={"/:slug"} component={ProductLists} />
         

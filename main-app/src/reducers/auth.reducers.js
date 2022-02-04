@@ -4,18 +4,20 @@ import {
 
 const initState = {
     token: null,
-    user:{
-        name:'',
-        username:'',
-        email:'',
-        picture:''
+    user: {
+        name: '',
+        username: '',
+        email: '',
+        picture: ''
     },
-    authenticate : false,
+    authenticate: false,
     authenticating: false,
-    loading:false,
-    error:null,
-    message : "",
-    address: []
+    loading: false,
+    error: null,
+    message: "",
+    address: [],
+    orders: [],
+    placedOrderId: null
 }
 export default (state = initState, action) => {
 
@@ -27,61 +29,120 @@ export default (state = initState, action) => {
             }
             break;
         case authConstants.LOGIN_SUCCESS:
-                state ={
-                    ...state,
-                    user: action.payload.user,
-                    token: action.payload.token,
-                    authenticate:true,
-                    authenticating:false
-                }
-                break;
-        case authConstants.LOGIN_FAILURE:
-            state ={
+            state = {
                 ...state,
-                error: action.payload.error,
-                authenticate:false,
-                authenticating:false
+                user: action.payload.user,
+                token: action.payload.token,
+                authenticate: true,
+                authenticating: false
             }
             break;
-            case authConstants.LOGOUT_REQUEST:
-                state = {
-                 ...state,
-                 loading:true,
+        case authConstants.LOGIN_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                authenticate: false,
+                authenticating: false
+            }
+            break;
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...state,
+                loading: true,
 
-                }
-                break;
-            case authConstants.LOGOUT_SUCCESS:
-                state = {
-                    ...initState,
-                }
-                break;
-            case authConstants.LOGOUT_FAILURE:
-                state = {
-                    ...state,
-                    error : action.payload.error,
-                    loading:false
-                }
-                break;
-            case authConstants.ADD_ADDRESS_REQUEST:
-                state ={
-                    ...state,
-                    loading : true
-                }
-                break;
-            case authConstants.ADD_ADDRESS_SUCCESS:
-                state ={
-                    ...state,
-                    address: action.payload.address,
-                    loading:false
-                }
-                break;
-            case authConstants.ADD_ADDRESS_FAILURE:
-                state = {
-                    ...state,
-                    loading:false,
-                    error: action.payload.error
-                }
-                break;
+            }
+            break;
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
+                ...initState,
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+            break;
+        case authConstants.ADD_ADDRESS_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.ADD_ADDRESS_SUCCESS:
+            state = {
+                ...state,
+                address: action.payload.address,
+                loading: false
+            }
+            break;
+        case authConstants.ADD_ADDRESS_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
+            break;
+        case authConstants.GET_ADDRESS_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.GET_ADDRESS_SUCCESS:
+            state = {
+                ...state,
+                address: action.payload.address,
+                loading: false
+            }
+            break;
+        case authConstants.GET_ADDRESS_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
+            break;
+        case authConstants.ADD_ORDER_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.ADD_ORDER_SUCCESS:
+            state = {
+                ...state,
+                placedOrderId: action.payload.order._id,
+                loading: false
+            }
+            break;
+        case authConstants.GET_ORDER_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.GET_ORDER_SUCCESS:
+            state = {
+                ...state,
+                orders: action.payload.order,
+                loading: false
+            }
+            break;
+        case authConstants.GET_ORDER_DETAILS_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.GET_ORDER_DETAILS_SUCCESS:
+            state = {
+                ...state,
+                placedOrderId: action.payload.order._id,
+                loading: false
+            }
+            break
     }
     return state;
 }

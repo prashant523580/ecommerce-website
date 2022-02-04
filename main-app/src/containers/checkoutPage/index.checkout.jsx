@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../../actions";
-import { login, getAddress } from "../../actions/auth.action";
+import { login, getAddress,addOrder } from "../../actions/auth.action";
 import Card from "../../components/ui/card/index.card";
 import CartPage from "../CartPage/index.cart";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 import AddressForm from "./AddressForm";
+import HandCash from "../../img/handcash.png";
+import EsewaImg from "../../img/esewa.png";
 import "./style.css";
 const CheckoutStep = (props) => {
     return (
@@ -78,7 +81,12 @@ const CheckoutPage = (props) => {
     const [confirmAddress, setConfirmAddress] = useState(false);
     const [orderSummery, setOrderSummery] = useState(false);
     const [orderConfirmation, setOrderConfirmation] = useState(false);
+    const [paymentOption,setPaymentOption] = useState(false);
     const [confirmOrder, setConfirmOrder] = useState(false);
+    const [paymentBtn,setPaymentBtn] = useState();
+    const[paymentType,setPaymentType] = useState();
+
+
     const cart = useSelector(state => state.cart);
     const { address } = auth;
     const dispatch = useDispatch();
@@ -131,10 +139,36 @@ const CheckoutPage = (props) => {
         setSelectedAddress(addr);
         setConfirmAddress(true);
         setOrderSummery(true);
+        setOrderConfirmation(true)
     }
     const userConfirmationOrder = ()=> {
         setOrderConfirmation(true);
         setOrderSummery(false);
+        setPaymentOption(true);
+    }
+    const submitConfirmOrder = () => {
+        
+        const totalAmt = Object.keys(cart.cartItems).reduce((totalPrice,key) => {
+            return totalPrice + cart.cartItems[key].qty * cart.cartItems[key].price
+        },0);
+        const items = Object.keys(cart.cartItems).map((key) => ({
+            productId: key,
+            payablePrice : cart.cartItems[key].price,
+            purchasedQuantity: cart.cartItems[key].qty
+        }));
+console.log(items)
+        const payload = {
+            addressId: selectedAddress._id,
+            totalAmt,
+            items,
+            paymentStatus:"pending",
+            paymentType: paymentType
+        }
+        dispatch(addOrder(payload));
+    }
+    const submitPaymentType = (e) => {
+        setPaymentType(e.currentTarget.dataset.val)
+        setPaymentBtn(true)
     }
     return (
         <>
@@ -240,18 +274,44 @@ const CheckoutPage = (props) => {
                     
                     />
                     <CheckoutStep
+                    step="4"
                     title={"confirm order"}
                     active={orderConfirmation}
                         body={
                             
                             orderSummery && 
-                            <Card>
-                                <>
-                                <div>order confirmation email will be sent to: <span className="confirm-email">{auth.user.email}</span> </div>
-                                <button onClick={userConfirmationOrder}> confirm </button>
-                                </>
-                                 </Card>
+                            
+                                <div className="payment-option">
+                                <div className="confirm">order confirmation email will be sent to: <span className="confirm-mail">{auth.user.email}</span> </div>
+                                <button className="confirm-btn" onClick={userConfirmationOrder}> continue </button>
+                                </div>
+                        
                         }
+                    />
+                    <CheckoutStep
+                    title={"payment options"}
+                    step="5"
+                    active={paymentOption}
+                    body={
+                        paymentOption && <>
+                                <div className="payment-option card">
+                                    <div className="option" onClick={submitPaymentType} data-val="cod"> <img width={30} height={30} src={HandCash}/> cash on delivery</div>
+                                   <div>or</div>
+                                    <div className="options">
+                                        <div className="option" data-val="esewa" onClick={submitPaymentType}>
+                                            <label htmlFor="esewa">Esewa</label>
+                                            <img src={EsewaImg} id="esewa"  width={80} height={40}/></div>
+                                        {/* <div className="option paypal">paypal</div> */}
+                                        <div className="option cards" data-val="card" onClick={submitPaymentType}>  card <CreditCardIcon id="card"/> </div>
+                                    </div>
+                                  {
+                                      
+                                      paymentBtn &&
+                                      <button className="confirm-btn" onClick={submitConfirmOrder}>confirm order</button>
+                                  }  
+                                </div>
+                        </>
+                    }
                     />
                 </div>
 

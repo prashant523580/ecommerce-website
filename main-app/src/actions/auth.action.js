@@ -145,17 +145,55 @@ export const addAddress = (payload) => {
 export const getAddress = () => {
     return async dispatch => {
         dispatch({
-            type:authConstants.ADD_ADDRESS_REQUEST
+            type:authConstants.GET_ADDRESS_REQUEST
         })
-        let res = await axios.get("user/address");
+        let res = await axios.get("/user/address");
   
         if(res.status === 200){
             const {address} = res.data.userAddress;
             dispatch({
-                type:authConstants.ADD_ADDRESS_SUCCESS,
+                type:authConstants.GET_ADDRESS_SUCCESS,
                 payload:{address}
             })
         }
 
+    }
+}
+export const addOrder = (payload) => {
+    console.log(payload)
+    return async dispatch => {
+        dispatch({type:authConstants.ADD_ORDER_REQUEST});
+        const res = await axios.post("/user/addOrder",payload);
+        console.log(res)
+        if(res.status === 201){
+            const {order} = res.data;
+            dispatch({
+                type:CartConstants.RESET_CART
+            })
+            dispatch({
+                type:authConstants.ADD_ORDER_SUCCESS,
+                payload: {order}
+            })
+
+        }
+    }
+}
+
+
+export const getOrders = () => {
+    return async dispatch => {
+        dispatch({type: authConstants.GET_ORDER_REQUEST});
+
+        let res = await axios.get("/user/getOrders");
+        console.log(res)
+        if(res.status === 200) {
+            const {order} = res.data;
+            dispatch({
+                type: authConstants.GET_ORDER_SUCCESS,
+                payload: {
+                    order
+                }
+            })
+        }
     }
 }

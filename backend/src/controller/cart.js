@@ -4,8 +4,11 @@ exports.addItemToCart = async (req, res) => {
         const existCart = await Cart.findOne({
             user: req.user._id
         });
-    
+        console.log(req.body)
         if (existCart) {
+            req.body.cartItems.forEach((cartItem) => {
+                    console.log(cartItem)
+            })
             const product = req.body.cartItems.product;
          
             let isItemAdded = existCart.cartItems.find(cart => {
@@ -41,10 +44,10 @@ exports.addItemToCart = async (req, res) => {
                 cartItems: updated
             });
         } else {
-          
+         
             const cart = await new Cart({
                 user: req.user._id,
-                cartItems: [req.body.cartItems]
+                cartItems: req.body.cartItems
             });
             const added_cart = await cart.save();
            

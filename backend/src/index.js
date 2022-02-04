@@ -15,6 +15,7 @@ const cartRoutes = require("./routes/cart");
 const initialData = require("./routes/admin/initialData");
 const PageRoute = require("./routes/admin/page");
 const addressRoute = require("./routes/address");
+const orderRoutes = require("./routes/order");
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-origin", "*")
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD,OPTIONS, PUT, PATCH, DELETE")
@@ -34,6 +35,7 @@ app.use("/api", cartRoutes);
 app.use("/api", initialData);
 app.use("/api/page", PageRoute);
 app.use("/api", addressRoute);
+app.use("/api", orderRoutes);
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`listening port to ${PORT}`);
 })

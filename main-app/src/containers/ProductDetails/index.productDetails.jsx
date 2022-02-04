@@ -35,11 +35,8 @@ const ProductDetailPage = (props) => {
 
         props.history.push("/cart")
     }
-    if(cart.updateingCart){
-
-    }
+ 
     const previewImgClick = (img) => {
-        console.log(img)
         setPreviewImg(img)
     }
     if (Object.keys(product.productDetails).length === 0) {
@@ -68,7 +65,7 @@ const ProductDetailPage = (props) => {
                         </div>
                     </div>
                     <div className="buttons">
-                        <button onClick={addTOCart} className="btn"> {cart.updatingCart ? "loading": "add to cart"}</button>
+                        <button onClick={addTOCart} className="btn"> {"add to cart"}</button>
                         <button className="btn" onClick={() => {
                             addTOCart()
                             props.history.push("/checkout")

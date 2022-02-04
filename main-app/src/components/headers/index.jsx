@@ -232,7 +232,6 @@ const Header = () => {
                     </>
                 }
                 menus={[
-                    { label: 'Profile', href: "", icon: null },
                     { label: "shop zone", href: "", icon: null },
                     {
                         label: "order",
@@ -272,7 +271,7 @@ const Header = () => {
                 </>
                 }
                 menus={[
-                    { label: "My Profile", href: "", icon: null },
+                    { label: auth.user.name, href: "/account", icon: null },
                     {
                         label: "Orders",
                         href: `/account/orders`,

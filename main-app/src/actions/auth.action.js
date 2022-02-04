@@ -197,3 +197,21 @@ export const getOrders = () => {
         }
     }
 }
+
+export const getOrderDetails = (payload) =>{
+    return async dispatch =>{
+        console.log(payload);
+        dispatch({type: authConstants.GET_ORDER_DETAILS_REQUEST});
+        let res = await axios.post("/user/getOrder", payload);
+        if(res.status === 200){
+            const {order} = res.data;
+            dispatch({type: authConstants.GET_ORDER_DETAILS_SUCCESS,
+            payload: {order}})
+        }else{
+            const {error} = res.data;
+            dispatch({type:authConstants.GET_ORDER_DETAILS_FAILURE,
+            payload:{error}})
+        }
+        // console.log(res)
+    }
+} 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import "./style.css";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -291,7 +292,7 @@ const Header = () => {
             <div className="head logo">
                 <NavLink className={'icon'} to='/'>logo</NavLink>
             </div>
-            <div className="head location">Nepal</div>
+            <div className="head location"> <LocationOnIcon/>Nepal</div>
             <div className="head search-box">
                 <input type="text" className='search' />
                 <button className='btn'><SearchIcon /></button>

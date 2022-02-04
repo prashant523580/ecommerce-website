@@ -26,7 +26,7 @@ exports.signin = async (req, res) => {
             const isMatch = await bcrypt.compare(password, verifyUser.password);
             const token = await verifyUser.generateToken();
             res.cookie("jwt", token, {
-                expire: "1hrs",
+                expires: new Date( Date.now() + 1000),
                 httpOnly: true
             })
             // console.log(token)

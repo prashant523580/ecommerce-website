@@ -18,6 +18,11 @@
     text-align: center;
     place-self: center;   
 }
+.main-header .head.location{
+    display: flex;
+    align-items: center;
+
+}
 .main-header .head  *:not(svg){
     /* color: var(--bg-green); */
 }

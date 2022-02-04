@@ -10,6 +10,7 @@ exports.addOrder =  async(req,res) => {
             req.body.orderStatus = [
                 {
                     type: "ordered",
+                    date: new Date(),
                     isCompleted : true
                 },
                 {
@@ -48,5 +49,22 @@ exports.addOrder =  async(req,res) => {
     }catch(err){
         res.status(200).json({error:err})
 
+    }
+}
+
+
+exports.getOrder = async(req,res) => {
+    try{
+        
+        let order = await Order.findOne({_id: req.body.orderID})
+        .populate("items.productId", "_id name productPicture").lean();
+        if(order){
+            let address = await Address.findOne({user: req.user._id});
+            order.address = address.address.find((adr) => adr._id.toString() == order.addressId.toString());
+            res.status(200).json({order});
+            
+        }
+    }catch(error){
+            res.status(400).json({error})
     }
 }

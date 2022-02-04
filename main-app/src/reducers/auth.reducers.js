@@ -17,7 +17,8 @@ const initState = {
     message: "",
     address: [],
     orders: [],
-    placedOrderId: null
+    placedOrderId: null,
+    orderDetails:[]
 }
 export default (state = initState, action) => {
 
@@ -117,6 +118,12 @@ export default (state = initState, action) => {
                 loading: false
             }
             break;
+        case authConstants.ADD_ORDER_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
         case authConstants.GET_ORDER_REQUEST:
             state = {
                 ...state,
@@ -130,6 +137,13 @@ export default (state = initState, action) => {
                 loading: false
             }
             break;
+
+        case authConstants.GET_ORDER_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
         case authConstants.GET_ORDER_DETAILS_REQUEST:
             state = {
                 ...state,
@@ -139,10 +153,16 @@ export default (state = initState, action) => {
         case authConstants.GET_ORDER_DETAILS_SUCCESS:
             state = {
                 ...state,
-                placedOrderId: action.payload.order._id,
+                orderDetails: action.payload.order,
                 loading: false
             }
-            break
+            break;
+        case authConstants.GET_ORDER_DETAILS_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
     }
     return state;
 }

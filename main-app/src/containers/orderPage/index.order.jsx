@@ -1,4 +1,4 @@
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../actions";
@@ -30,17 +30,22 @@ const OrderPage = (props) =>{
                             {
 
                                 leftHeader:"Order",
-                                rightHeader:"l"
+                                rightHeader:ord.paymentStatus
                             }
                         }
                         >
-                            <Link to={`/order_details/${ord._id}`}>
+                            <Link title="click to view order details" to={`/orderDetails/${ord._id}`}>
                                 <div className="img-container">
                                     <img src={generateImgUrl(ord.items[0].productId.productPicture[0].img)} alt="" />    
                                 </div> 
                                 <div className="order-details">
-                                    {console.log(ord)}
-                                    <div className="product-name">{ord.items[0].productId.name}</div>
+                                    
+                                    <div className="product-name"> <p>
+                                        {ord.items[0].productId.name}
+                                        </p>
+
+                                        </div>
+                                    <div className="product-price">{ord.items[0].payablePrice}</div>
                                 </div>
                             </Link>
                         </Card>

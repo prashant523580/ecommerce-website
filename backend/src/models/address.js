@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+                
 const addressSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -40,13 +40,11 @@ const addressSchema = new mongoose.Schema({
   state: {
     type: String,
     required: true,
-    required: true,
   },
   addressType: {
     type: String,
     required: true,
-    enum: ["home", "work"],
-    required: true,
+    enum: ["home", "work"]
   },
 });
 

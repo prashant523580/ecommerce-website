@@ -63,7 +63,7 @@ nav{
   overflow: hidden;
   cursor: pointer;
   }
-  .active{
+  .nav-link.active{
     transform: scale(.7);
     background-color: rgb(11, 85, 107);
     border-radius: 10%;

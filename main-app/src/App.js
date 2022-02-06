@@ -19,8 +19,8 @@ function App() {
   const auth = useSelector(state => state.auth);
   const category = useSelector(state => state.category);
   useEffect(() => {
-    // dispatch(getAllCategory());
-    dispatch(getInitialData());
+    dispatch(getAllCategory());
+    // dispatch(getInitialData());  
   },[])
 
   useEffect(()=> {

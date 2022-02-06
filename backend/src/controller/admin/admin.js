@@ -34,16 +34,16 @@ exports.signin = async (req, res) => {
                 secure: true,
                 // signed : true
             });
-            if (!isMatch || verifyUser.role != "admin") {
-                res.status(422).json({
-                    error: "admin not found or password not match"
-                });
-            } else {
+            if (isMatch || verifyUser.role == "admin") {
                 res.status(200).json({
                     message: "admin login success",
                     token,
                     user : verifyUser
                 })
+            } else {
+                res.status(422).json({
+                    error: "admin not found or password not match"
+                });
             }
         }
          

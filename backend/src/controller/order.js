@@ -3,7 +3,6 @@ const Cart = require("../models/cart");
 const Address = require("../models/address");
 exports.addOrder =  async(req,res) => {
     try{
-        console.log(req.body)
         const cart = await Cart.deleteOne({user:req.user._id});
         if(cart){
             req.body.user = req.user._id;
@@ -41,7 +40,7 @@ exports.addOrder =  async(req,res) => {
     exports.getOrders = async (req,res) => {
         try{
         const order = await Order.find({user:req.user._id})
-        .select("_id paymentStatus paymentType items orderStatus")
+        .select("_id paymentStatus paymentType items orderStatus addressId")
         .populate("items.productId", "_id name productPicture").exec();
         if(order){
             res.status(200).json({order})

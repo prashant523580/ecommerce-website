@@ -160,11 +160,11 @@ export const getAddress = () => {
     }
 }
 export const addOrder = (payload) => {
-    console.log(payload)
+    // console.log(payload)
     return async dispatch => {
         dispatch({type:authConstants.ADD_ORDER_REQUEST});
         const res = await axios.post("/user/addOrder",payload);
-        console.log(res)
+        // console.log(res)
         if(res.status === 201){
             const {order} = res.data;
             dispatch({
@@ -200,7 +200,7 @@ export const getOrders = () => {
 
 export const getOrderDetails = (payload) =>{
     return async dispatch =>{
-        console.log(payload);
+        // console.log(payload);
         dispatch({type: authConstants.GET_ORDER_DETAILS_REQUEST});
         let res = await axios.post("/user/getOrder", payload);
         if(res.status === 200){

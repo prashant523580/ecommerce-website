@@ -10,7 +10,7 @@
     white-space: nowrap;
     transition: transform .2s ease;
 }
-.slide{
+.inner .slide{
     height: 300px;
     display: inline-flex;
     justify-content: center;

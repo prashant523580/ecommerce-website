@@ -4,6 +4,7 @@ import './style.css';
 import ProductStore from "./ProductStore";
 import   getParam from "../../utils/getParam";
 import ProductPage from "./ProductPage";
+import OtherStore from "./othersPage/index.other"
 // import { useParams } from "react-router-dom";
 const ProductLists = (props) => {
     const params = getParam()
@@ -16,6 +17,9 @@ const ProductLists = (props) => {
                 break;
             case "page" :
                 content = <ProductPage {...props}/>
+                break;
+            default : 
+            content = <OtherStore {...props}/>
         }
         return content;
     }

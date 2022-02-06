@@ -59,14 +59,16 @@ exports.getProductBySlug = async (req, res) => {
         let {
             slug
         } = req.params;
+        console.log(slug)
         let currentCategory = await category.findOne({
             slug
-        }).select("_id");
-
+        }).select("_id type");
+        // console.log(currentCategory)
         if (currentCategory) {
             let currentProducts = await Product.find({
                 category: currentCategory._id
             });
+            console.log(currentProducts)
             res.status(200).json({
                 currentProducts,
                 productByPrice: {

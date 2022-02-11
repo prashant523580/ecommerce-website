@@ -29,7 +29,7 @@ const OrderPage = (props) =>{
                         header={
                             {
 
-                                leftHeader:"Order",
+                                leftHeader:"Payment",
                                 rightHeader:ord.paymentStatus
                             }
                         }

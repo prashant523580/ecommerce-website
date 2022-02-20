@@ -1,7 +1,7 @@
 const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { validateRequest } = require("../../validators/validator");
+// const { validateRequest } = require("../../validators/validator");
 exports.signin = async (req, res) => {
     
     const {
@@ -30,9 +30,6 @@ exports.signin = async (req, res) => {
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 1000),
                 httpOnly: true,
-                // sameSite:'lax',
-                secure: true,
-                // signed : true
             });
             if (isMatch || verifyUser.role == "admin") {
                 res.status(200).json({

@@ -267,12 +267,12 @@ const Header = () => {
         return (
             <Dropdown
                 menu={<>
-                    <a> {auth.user.name}</a>
+                    <a> profile</a>
                     <ArrowDropDownIcon />
                 </>
                 }
                 menus={[
-                    { label: auth.user.name, href: "/account", icon: null },
+                    { label: "account"  , href: "/account", icon: null },
                     {
                         label: "Orders",
                         href: `/account/orders`,

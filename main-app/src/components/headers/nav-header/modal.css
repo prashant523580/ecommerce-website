@@ -22,7 +22,7 @@
   left: 50%;
   /* transform: translate(-50%,-50%); */
   /* width: 100px; */
-    width: 120vmin;
+    width: 80vmin;
   /* height: 60vmin; */
   margin: auto;
   /* padding: .5rem .3rem; */
@@ -37,7 +37,7 @@
   /* background-color: rgb(5, 70, 66); */
   background-color: whitesmoke;
   border-radius: .2rem;
-
+  
 }
 
 @keyframes slide- {
@@ -129,6 +129,7 @@
 .modal,
 .modal-body h4 {
   color: rgb(57, 44, 44);
+  font-size: 2.9vmin;
 }
 
 .modal form {
@@ -217,12 +218,13 @@ form .form-group .input-control:focus {
   text-align: center;
   text-transform: capitalize;
   color: white;
-  padding: 1.8vmin 1vmin;
+  padding: 2.2vmin 1vmin;
   outline: 0;
+  /* width: 23vmin; */
   margin: 0 .2rem;
   /* place-self: center; */
   border: 0;
-
+  font-size: 2.7vmin;
   width: 50%;
   cursor: pointer;
 }

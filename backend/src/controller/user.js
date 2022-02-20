@@ -1,26 +1,26 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const jwt = require("jsonwebtoken");
-const {
-    validationResult
-} = require("express-validator");
+// const {
+//     validationResult
+// } = require("express-validator");
 exports.signin = async (req, res) => {
+    
+    const {
+        email_user,
+        password
+    } = req.body;
+    if (!email_user || !password) {
+        return res.status(422).json({
+            error: "fill data"
+        })
+    }
+    let verifyUser = await User.findOne({
+        username: email_user
+    }) || await User.findOne({
+        email: email_user
+    });
     try {
-
-        const {
-            email_user,
-            password
-        } = req.body;
-        if (!email_user || !password) {
-            return res.status(422).json({
-                error: "fill data"
-            })
-        }
-        let verifyUser = await User.findOne({
-            username: email_user
-        }) || await User.findOne({
-            email: email_user
-        });
         // console.log(verifyUser)
         if (verifyUser) {
             const isMatch = await bcrypt.compare(password, verifyUser.password);
@@ -30,16 +30,16 @@ exports.signin = async (req, res) => {
                 httpOnly: true
             })
             // console.log(token)
-            if (!isMatch && verifyUser.role != "user") {
-                res.status(422).json({
-                    error: "admin login error"
-                });
-            } else {
+            if (isMatch && verifyUser.role === "user") {
                 res.status(200).json({
                     message: "user login success",
                     token,
                     user: verifyUser
                 })
+            } else {
+                res.status(422).json({
+                    error: "admin login error"
+                });
             }
         } else {
             res.status(422).json({
@@ -75,7 +75,7 @@ exports.signup = async (req, res) => {
         });
         if (existUser) {
             res.status(422).json({
-                error: "already exist"
+                error: "user already exist"
             })
         } else {
 
@@ -95,7 +95,8 @@ exports.signup = async (req, res) => {
     } catch (error) {
         res.status(422).json({
             error
-        })
+        });
+        console.log(error)
     }
 }
 exports.requireSignin = (req, res, next) => {

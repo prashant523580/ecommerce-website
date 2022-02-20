@@ -21,7 +21,9 @@ exports.addCategory = async (req, res) => {
                 slug: `${slugify(req.body.name)}-${shortid.generate()}`
             }
             if (req.file) {
-                categoryUrl = process.env.API + '/public/' + req.file.filename;
+                // categoryUrl = process.env.API + '/public/' + req.file.filename;
+
+                categoryUrl = '/public/' + req.file.filename;
                 categoryObj.categoryImage = categoryUrl;
             }
 

@@ -48,9 +48,9 @@ const Category = () => {
         for (let category of categories) {
             options.push({
                 value: category._id,
-                 name: category.name,
-                  parentId: category.parentId,
-                  type: category.type
+                name: category.name,
+                parentId: category.parentId,
+                type: category.type
             });
             if (category.children.length > 0) {
                 createCategoryList(category.children, options)
@@ -93,7 +93,7 @@ const Category = () => {
         })
         setCheckedArray(checkedArray);
         setExpandedArray(expandedArray);
-        console.log({checkedArray,expandedArray})
+        console.log({ checkedArray, expandedArray })
     }
 
     const handleCategoryInput = (key, value, index, type) => {
@@ -187,8 +187,8 @@ const Category = () => {
                             <h1>Category</h1>
                             <div className="buttons">
 
-                            <button className="btn" onClick={() => setToggleCategoryForm("block")}>add category</button>
-                            <button className='btn' onClick={deleteCategoryUpdate}>delete</button>
+                                <button className="btn" onClick={() => setToggleCategoryForm("block")}>add category</button>
+                                <button className='btn' onClick={deleteCategoryUpdate}>delete</button>
                                 <button className='btn' onClick={updateCategories}>edit</button>
                             </div>
                         </div>
@@ -243,10 +243,10 @@ const Category = () => {
                                                             <option key={option.value} value={option.value}>{option.name}</option>)
                                                     }
                                                 </select>
-                                                <select 
-                                                value={item.type}
-                                                onChange={(e) => handleCategoryInput("type",e.target.value,index,"expanded")}
-                                                className='form-input'>
+                                                <select
+                                                    value={item.type}
+                                                    onChange={(e) => handleCategoryInput("type", e.target.value, index, "expanded")}
+                                                    className='form-input'>
                                                     <option value="">select here</option>
                                                     <option value="page">page</option>
                                                     <option value="product">product</option>
@@ -270,10 +270,10 @@ const Category = () => {
                                                             <option key={option.value} value={option.value}>{option.name}</option>)
                                                     }
                                                 </select>
-                                                <select 
-                                                value={item.type}
-                                                onChange={(e) => handleCategoryInput("type",e.target.value,index,"checked")}
-                                                className='form-input'>
+                                                <select
+                                                    value={item.type}
+                                                    onChange={(e) => handleCategoryInput("type", e.target.value, index, "checked")}
+                                                    className='form-input'>
                                                     <option value="">select here</option>
                                                     <option value="page">page</option>
                                                     <option value="product">product</option>

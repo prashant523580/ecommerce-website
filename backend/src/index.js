@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const app = express();
 const dotenv = require("dotenv");
 const path = require("path");
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
     next()
 })
 app.use(cookieParser());
+// app.use(bodyParser());
 app.use(express.json());
 app.use(cors());
 app.use("/public/", express.static(path.join(__dirname, "uploads")));

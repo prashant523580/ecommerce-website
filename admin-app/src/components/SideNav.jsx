@@ -52,15 +52,15 @@ const Sidenav = (props) => {
     return(
         <>
         <div className="side-nav">
-            <div className="nav-links" style={{width:menuWidth+"px"}}>
-
             <div className="menu-icon">
                 <ArrowForwardIosIcon onClick={toggleMenu} style={{transform:`rotate(${rotate}deg)`}} /> 
             </div>
+            <div className="nav-links" style={{width:menuWidth+"px"}}>
+
             {
                 navlinks.map((navlink,ind) => {
                     return(
-                        <NavLink key={ind} exact activeclassname="active" to={navlink.path}>{navlink.icon} <span style={{display:linkText}}>{navlink.link} </span></NavLink>
+                        <NavLink key={ind} exact activeclassname="active" to={navlink.path}>{navlink.icon} <div style={{display:linkText}}>{navlink.link} </div></NavLink>
                         )
                     })
                 }

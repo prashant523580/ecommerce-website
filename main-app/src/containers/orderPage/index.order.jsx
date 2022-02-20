@@ -11,7 +11,6 @@ const OrderPage = (props) =>{
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getOrders());
-        
     },[])
     // useEffect(() => {
     //     setOrders(auth.orders);
@@ -23,7 +22,7 @@ const OrderPage = (props) =>{
             <div className="page-container">
                 <div className="row orders">
                     
-                    { auth.orders.map((ord,ind) => 
+                    {auth.orders.length > 0 && auth.orders.map((ord,ind) => 
                         <Card
                          key={ind}
                         header={
@@ -41,11 +40,11 @@ const OrderPage = (props) =>{
                                 <div className="order-details">
                                     
                                     <div className="product-name"> <p>
-                                        {ord.items[0].productId.name}
+                                        {ord.items[0].productId.name.split(" ",3)}
                                         </p>
 
                                         </div>
-                                    <div className="product-price">{ord.items[0].payablePrice}</div>
+                                    <div className="product-price"> price{ord.items[0].payablePrice}</div>
                                 </div>
                             </Link>
                         </Card>

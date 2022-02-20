@@ -7,11 +7,12 @@ export const getAllProduct = () => {
             type: productsConstants.GET_ALL_PRODUCTS_REQUEST
         })
         const res = await axios.post("/product/getproduct");
+        // console.log(res)
         if (res.status === 200) {
-            const { products } = res.data;
+            const { products,page } = res.data;
             dispatch({
                 type: productsConstants.GET_ALL_PRODUCTS_SUCCESS,
-                payload: { products }
+                payload: { products,page }
             })
         } else {
             dispatch({
@@ -46,11 +47,13 @@ export const getProductPage = (payload) => {
             type: productsConstants.GET_PRODUCT_PAGE_REQUEST
         });
         const res = await axios.get(`/page/${cid}/${type}`);
+        console.log(res)
         if (res.status === 200) {
             dispatch({
                 type: productsConstants.GET_PRODUCT_PAGE_SUCCESS,
                 payload: {
-                    page: res.data.page
+                    page: res.data.page,
+                    products : res.data.products
                 }
             })
         } else {

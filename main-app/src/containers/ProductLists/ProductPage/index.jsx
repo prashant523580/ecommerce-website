@@ -13,7 +13,7 @@ const ProductPage = (props) => {
     const dispatch = useDispatch();
     const product = useSelector(state => state.product);
     const { page,products } = product;
-    console.log(products)
+    // console.log(products)
     useEffect(() => {
         const param = getParam(props.location.search);
         const payload = {
@@ -39,7 +39,7 @@ const ProductPage = (props) => {
 
             <Card header={{
 
-                leftHeader: "products"
+                leftHeader: products.length > 0 && products[0].category.name
             }
             } >
                      
@@ -61,6 +61,9 @@ const ProductPage = (props) => {
                                   <div className=" product-img">
 
                                   <img src={generateImgUrl(product.productPicture[0].img)} alt={product.name} />
+                                  </div>
+                                  <div className="product-details">
+                                      <span>{product.name.split(' ',3)}</span>
                                   </div>
                               </div>
                               </Link>

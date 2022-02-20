@@ -85,7 +85,12 @@ export const isUserLoggedIn =()=> {
     return async dispatch => {
         const token = localStorage.getItem("token");
         if(token){
-            const user = JSON.parse(localStorage.getItem("user"));
+            let user = localStorage.getItem("user");
+            if(user.length > 0){
+
+
+                user = JSON.parse(user);
+            }
             dispatch({
                 type: authConstants.LOGIN_SUCCESS,
                 payload :{
@@ -94,8 +99,8 @@ export const isUserLoggedIn =()=> {
             })
         }else{
             dispatch({
-                type:authConstants.LOGIN_FAILURE,
-                payload:{error: ""}
+                type:authConstants.LOGOUT_SUCCESS,
+                // payload:{error: "login first"
             })
         }
     }

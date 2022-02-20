@@ -1,5 +1,5 @@
 const cacheName = "cache-version";
-const urlToCache = ["localhost","index.html","offline.html", "favicon.png"];
+const urlToCache = ["index.html","offline.html", "favicon.png","account/orders"];
 
 //install
 

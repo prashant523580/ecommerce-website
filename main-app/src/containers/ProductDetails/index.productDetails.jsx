@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, getProductDetailsById } from "../../actions";
 import { generateImgUrl } from "../../urlConfig";
 import "./style.css";
+import "./responsive.css";
 
 const ProductDetailPage = (props) => {
     const dispatch = useDispatch();
@@ -86,15 +87,15 @@ const ProductDetailPage = (props) => {
                                 <a href="#">Samsung</a> &gt;
                             </li>
                             <li>
-                                <a href="#">{product.productDetails.name.split(" ",4)}</a>
+                                <a href="#">{product.productDetails.name.split(" ",3)}</a>
                             </li>
                         </ul>
                     </div>
                     <div className="product-details">
-                        <h3>{product.productDetails.name}</h3>
+                        <h3>{product.productDetails.name.split(" ",4)}</h3>
                         <div className="rating">
                             <div className="rating-count">
-                                3.4 ★
+                                3.4★
                             </div>
                             <div className="rating-number">
                                 72,234 Ratings & 8,140 Reviews

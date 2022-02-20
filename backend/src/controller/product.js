@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 const slugify = require("slugify");
 const category = require("../models/category");
-
+const Page = require("../models/page");
 
 exports.createProduct = async (req, res) => {
     try {
@@ -43,10 +43,15 @@ exports.createProduct = async (req, res) => {
 
 exports.getAllProduct = async (req, res) => {
     try {
-        let products = await Product.find();
-        res.status(200).json({
-            products
-        })
+        let products = await Product.find().populate("category","name");
+        let page = await Page.find();
+        if(products || page){
+
+            res.status(200).json({
+                products,
+                page
+            })
+        }
     } catch (err) {
         res.status(422).json({
             err

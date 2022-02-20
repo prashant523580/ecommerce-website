@@ -4,42 +4,40 @@
     top: 0;
     left: 0;
     /* background-color:  rgb(199, 201, 111); */
-    height: auto;
+    /* height: auto; */
+    background-color:var(--bg-green);
+    height: 100vh;
 }
 .side-nav .menu-icon{
  
     background-color: rgb(189, 196, 209);
     color: rgb(255, 255, 255);
     cursor: pointer;
-    
+    text-align: center;
+    padding: 6px;
 }
 .side-nav .menu-icon svg{
-    width: 50px;
-    height: 50px;
     transition: .3s ease;
 }
 .side-nav .nav-links{
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background-color:var(--bg-green);
     transition:  .2s ease;
-    
+    padding: 8px 3px;
 }
 *{
     transition: all .2s ease;
-
+    
 }
 .side-nav .nav-links a{
-    width: 100%;
     text-decoration: none;
     text-transform: capitalize;
     display: flex;
-    /* text-align: center; */
-    /* justify-content: space-between; */
+    text-align: center;
+    /* justify-content: space-around; */
     color: white;
     transition: all .2s ease;
-
+    font-size: 2.9vmin;
 
 }
 .side-nav .nav-links a:hover{
@@ -48,34 +46,36 @@
     background-color: rgba(7, 141, 146, 0.349);
     border-radius: 10%;
     box-shadow:
-    3px -5px 0px 3px var(--form-bg),
+    3px -5px 0px 1px var(--form-bg),
     -3px 3px 0px 3px rgba(240, 97, 1, 0.671),
     /* -2px 4px 0px 4px rgb(11, 207, 197), */
-    0 0 0px 7px rgba(24, 117, 44, 0.644);
-    transform: scale(.6);
+    0 0 0px 4px rgba(24, 117, 44, 0.644);
+    transform: scale(.89);
     /* color:rgb(253, 61, 2); */
 }
 .side-nav .nav-links a:active{
     /* border-radius: 20%; */
     box-shadow:inset 0 0px  5px 1px rgba(6, 240, 228, 0.466);
     background-color: rgba(18, 122, 126, 0.603);
-    box-shadow:
-    3px -5px 0px 4px rgba(235, 74, 0, 0.555),
+    box-shadow: inset
+    3px -5px 0px 1px rgba(235, 74, 0, 0.555),
     /* -2px 4px 0px 4px rgb(11, 207, 197), */
-    -3px 5px 0px 5px var(--form-bg),
-    0 0 0px 7px rgba(0, 255, 55, 0.466);
-    transform: scale(.7);
+    -3px 5px 0px 3px var(--form-bg),
+    0 0 0px 4px rgba(5, 91, 102, 0.63);
+    transform: scale(.9);
 }
-.side-nav .nav-links a span{
+.side-nav .nav-links a div{
     /* font-size: 2.1vmin; */
     text-align: center;
     margin-right: 10px;
     line-height: 50px;
 }
 .side-nav .nav-links a svg{
-    width: 50px;
-    height: 50px;
+
     color: white;
     padding: .6rem;
+    width: 8vmin;
+    height: 8vmin;
     transition: all .3s ease;
+    text-align: center;
 }

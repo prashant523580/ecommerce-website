@@ -90,7 +90,7 @@ const OrderDetails = (props) => {
                                                     </div>
                                                 </div>
                                                 <div className="item-details">
-                                                    <div> {item.productId.name}</div>
+                                                    <div> {item.productId.name.split(" ",3)}</div>
                                                     <div> Payable price : {item.payablePrice}</div>
 
                                                 </div>

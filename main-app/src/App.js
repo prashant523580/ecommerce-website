@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import logo from './logo.svg';
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
-import { getAllCategory, getCartItems, getInitialData, isUserLoggedIn, updateCart } from "./actions"
+import { getAllCategory, getAllProduct, getCartItems, getInitialData, isUserLoggedIn, updateCart } from "./actions"
 import HomePage from "./containers/HomePage/index";
 import Header from "./components/headers/index";
 import Menu from "./components/Menu/index";
@@ -17,9 +17,10 @@ import OrderDetails from "./containers/orderPage/orderDetails";
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth);
-  const category = useSelector(state => state.category);
+  // const category = useSelector(state => state.category);
   useEffect(() => {
     dispatch(getAllCategory());
+    dispatch(getAllProduct());
     // dispatch(getInitialData());  
   },[])
 
